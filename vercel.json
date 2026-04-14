@@ -39,6 +39,16 @@
       "source": "/yt",
       "destination": "/?utm_source=youtube&utm_medium=description&utm_campaign=evergreen",
       "permanent": false
+    },
+    {
+      "source": "/tt",
+      "destination": "/?utm_source=tiktok&utm_medium=bio&utm_campaign=evergreen",
+      "permanent": false
+    },
+    {
+      "source": "/ttvideo",
+      "destination": "/?utm_source=tiktok&utm_medium=video&utm_campaign=evergreen",
+      "permanent": false
     }
   ]
 }
