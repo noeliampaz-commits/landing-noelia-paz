@@ -1,0 +1,44 @@
+{
+  "redirects": [
+    {
+      "source": "/ig",
+      "destination": "/?utm_source=instagram&utm_medium=bio&utm_campaign=evergreen",
+      "permanent": false
+    },
+    {
+      "source": "/stories",
+      "destination": "/?utm_source=instagram&utm_medium=stories&utm_campaign=evergreen",
+      "permanent": false
+    },
+    {
+      "source": "/dm",
+      "destination": "/?utm_source=instagram&utm_medium=dm&utm_campaign=evergreen",
+      "permanent": false
+    },
+    {
+      "source": "/post",
+      "destination": "/?utm_source=instagram&utm_medium=post&utm_campaign=evergreen",
+      "permanent": false
+    },
+    {
+      "source": "/reel",
+      "destination": "/?utm_source=instagram&utm_medium=reel&utm_campaign=evergreen",
+      "permanent": false
+    },
+    {
+      "source": "/wa",
+      "destination": "/?utm_source=whatsapp&utm_medium=direct&utm_campaign=evergreen",
+      "permanent": false
+    },
+    {
+      "source": "/email",
+      "destination": "/?utm_source=email&utm_medium=newsletter&utm_campaign=evergreen",
+      "permanent": false
+    },
+    {
+      "source": "/yt",
+      "destination": "/?utm_source=youtube&utm_medium=description&utm_campaign=evergreen",
+      "permanent": false
+    }
+  ]
+}
