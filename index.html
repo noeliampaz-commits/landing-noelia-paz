@@ -138,22 +138,33 @@ section { padding: var(--section-padding); position: relative; }
 /* ========== BUTTONS ========== */
 .btn-primary {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 4px;
   padding: 18px 40px;
   background: linear-gradient(135deg, var(--accent), var(--accent-light));
   color: #050505;
   font-family: var(--body-font);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-weight: 700;
   border-radius: 6px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 24px rgba(193, 143, 18, 0.25);
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.2;
+}
+.btn-primary .btn-main {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.btn-primary .btn-sub {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.85;
 }
 .btn-primary:hover {
   transform: translateY(-2px);
@@ -161,6 +172,11 @@ section { padding: var(--section-padding); position: relative; }
 }
 .btn-primary:active { transform: translateY(0); }
 .btn-primary svg { width: 18px; height: 18px; flex-shrink: 0; }
+@media (max-width: 600px) {
+  .btn-primary { padding: 14px 24px; }
+  .btn-primary .btn-main { font-size: 0.9rem; letter-spacing: 0.8px; }
+  .btn-primary .btn-sub { font-size: 0.65rem; letter-spacing: 1.5px; }
+}
 
 /* ========== SCROLL REVEAL ========== */
 .reveal {
@@ -316,6 +332,83 @@ section { padding: var(--section-padding); position: relative; }
   gap: 24px;
   margin-top: 50px;
 }
+.testimonials-grid--centered {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 50px;
+}
+.testimonials-grid--centered .testimonial-card {
+  width: calc(33.333% - 16px);
+  max-width: 340px;
+}
+
+/* Video testimonials (antes/después en video) */
+.video-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 50px;
+}
+.video-testimonial-card {
+  background: var(--accent);
+  border-radius: 14px;
+  padding: 20px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+.video-testimonial-card .vt-name {
+  font-family: var(--heading-font);
+  color: #0e0e0e;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.video-testimonial-card video {
+  width: 100%;
+  border-radius: 10px;
+  background: #000;
+  display: block;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+}
+.video-testimonial-card .vt-footer {
+  text-align: center;
+  color: #0e0e0e;
+  padding: 6px 4px 0;
+}
+.video-testimonial-card .vt-time {
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.video-testimonial-card .vt-result {
+  font-weight: 600;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+@media (max-width: 900px) {
+  .video-testimonials-grid { grid-template-columns: 1fr; gap: 20px; max-width: 420px; margin-left: auto; margin-right: auto; }
+}
+.testimonials-subgroup-title {
+  font-family: var(--heading-font);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 80px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.testimonials-subgroup-title em { color: var(--accent); font-style: normal; }
 .testimonial-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -873,14 +966,19 @@ section { padding: var(--section-padding); position: relative; }
 .final-cta-section h2 { margin-bottom: 16px; }
 .final-cta-section .section-subtitle { margin-bottom: 40px; }
 
-/* Calendly embed — no internal scroll */
+/* Calendly embed — grow-only, no internal scroll */
 #calendly-container {
-  overflow: visible;
+  overflow: hidden;
+  background: #121212;
+  border: 1px solid rgba(193, 143, 18, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(193, 143, 18, 0.06);
+  max-width: 700px;
+  margin: 48px auto 0;
 }
-/* Initial height — JS grows it dynamically per Calendly step (calendar < form) */
 #calendly-widget {
-  height: 1100px;
-  min-height: 1100px;
+  height: 1300px;
+  min-height: 1300px;
   transition: height 0.3s ease;
 }
 #calendly-widget iframe {
@@ -950,6 +1048,8 @@ section { padding: var(--section-padding); position: relative; }
   .proof-item { min-width: 80px; }
   .proof-number { font-size: 2rem; }
   .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
+  .testimonials-grid--centered { gap: 16px; }
+  .testimonials-grid--centered .testimonial-card { width: 100%; max-width: 100%; }
   .pain-grid { grid-template-columns: 1fr; }
   .future-grid { grid-template-columns: 1fr; gap: 16px; }
   .pillars-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -965,6 +1065,7 @@ section { padding: var(--section-padding); position: relative; }
 }
 @media (max-width: 640px) {
   #calendly-widget { height: 1700px; min-height: 1700px; }
+  #calendly-container { border-radius: 12px; margin-top: 32px; }
 }
 
 @media (max-width: 480px) {
@@ -992,9 +1093,6 @@ section { padding: var(--section-padding); position: relative; }
 <!-- Scroll Progress Bar -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
-<!-- ============ TOPBAR ============ -->
-<div class="topbar">Lugares reducidos para garantizar acompañamiento personalizado</div>
-
 <!-- ============ HEADER ============ -->
 <header class="site-header">
   <div class="container">
@@ -1007,7 +1105,6 @@ section { padding: var(--section-padding); position: relative; }
   <div class="glow glow-gold glow-1"></div>
   <div class="glow glow-gold glow-2"></div>
   <div class="container">
-    <span class="section-label reveal">Noe Paz &middot; Especialista en alimentación antiinflamatoria</span>
     <h1 class="reveal reveal-delay-1">
       Descubrí el <strong>Método Paz</strong>, el sistema que te ayuda a <strong>bajar inflamación abdominal</strong>, perder hasta <strong><span class="number-highlight">8</span> kg con ganancia muscular</strong> a través de una alimentación antiinflamatoria a base de plantas, sin gluten y con nutrición en solo <strong><span class="number-highlight">90</span> días</strong>
     </h1>
@@ -1015,7 +1112,7 @@ section { padding: var(--section-padding); position: relative; }
 
     <div class="vsl-wrapper reveal reveal-delay-2">
       <div class="vsl-responsive">
-        <iframe src="https://www.youtube.com/embed/22TP7IRsXic?rel=0&playsinline=1" title="Método Paz — Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/tiscowFP_jk?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=tiscowFP_jk" title="Método Paz — Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </div>
 
@@ -1025,85 +1122,71 @@ section { padding: var(--section-padding); position: relative; }
         <span class="proof-label">Años de experiencia</span>
       </div>
       <div class="proof-item">
-        <span class="proof-number" data-target="90">0</span>
-        <span class="proof-label">Días de programa</span>
-      </div>
-      <div class="proof-item">
         <span class="proof-number" data-target="8" data-suffix=" kg">0</span>
         <span class="proof-label">Hasta de pérdida</span>
       </div>
       <div class="proof-item">
-        <span class="proof-number" data-target="3">0</span>
-        <span class="proof-label">Pilares del método</span>
+        <span class="proof-number" data-target="90">0</span>
+        <span class="proof-label">Días de programa</span>
       </div>
     </div>
 
     <a href="#agendar" class="btn-primary reveal reveal-delay-4">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Accedé ahora
+      <span class="btn-main">Transforma tu alimentación y salud</span>
+      <span class="btn-sub">Accede ahora</span>
     </a>
   </div>
 </section>
 
-<!-- ============ TESTIMONIALS BLOCK 1 ============ -->
+<!-- ============ TESTIMONIALS ============ -->
 <section class="testimonials" id="resultados">
   <div class="container text-center">
-    <span class="section-label reveal">Resultados reales</span>
     <h2 class="section-title reveal">Resultados de mis <em class="accent-text">clientas</em></h2>
     <div class="gold-divider reveal"></div>
-    <p class="section-subtitle reveal">Historias reales de mujeres que transformaron su salud con el Método Paz</p>
+
+    <!-- Videos testimoniales -->
+    <div class="video-testimonials-grid">
+      <div class="video-testimonial-card reveal">
+        <div class="vt-name">Yazmin:</div>
+        <video controls preload="metadata" playsinline>
+          <source src="testimonios/Testimonio%20Yazmin.mp4" type="video/mp4">
+        </video>
+        <div class="vt-footer">
+          <div class="vt-time">En solo 90 días</div>
+          <div class="vt-result">Se desinflamó, bajó 8 kilos, ganó masa muscular y tiene mucha más energía</div>
+        </div>
+      </div>
+
+      <div class="video-testimonial-card reveal reveal-delay-1">
+        <div class="vt-name">Ale:</div>
+        <video controls preload="metadata" playsinline>
+          <source src="testimonios/Alejandrian%20testimonio.mp4" type="video/mp4">
+        </video>
+        <div class="vt-footer">
+          <div class="vt-time">En solo 90 días</div>
+          <div class="vt-result">Bajó 10 kilos, se desinflamó y tiene muchísima más energía</div>
+        </div>
+      </div>
+
+      <div class="video-testimonial-card reveal reveal-delay-2">
+        <div class="vt-name">Marcela:</div>
+        <video controls preload="metadata" playsinline>
+          <source src="testimonios/Testimonio%20Marcela.mp4" type="video/mp4">
+        </video>
+        <div class="vt-footer">
+          <div class="vt-time">En solo 90 días</div>
+          <div class="vt-result">Se desinflamó, bajó de peso y recuperó su energía vital</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fotos: 90 días -->
+    <h3 class="testimonials-subgroup-title reveal">Mis clientas en <em>90 días</em> tuvieron estos resultados</h3>
+    <div class="gold-divider reveal"></div>
 
     <div class="testimonials-grid">
 
       <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/sole.jpeg" alt="Sole - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Sole</div>
-        <p class="testimonial-result">Perdió 7 kilos, ganó energía vital y se desinflamó completamente.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/elen.png" alt="Elen - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Elen</div>
-        <p class="testimonial-result">En 3 meses se desinflamó, bajó 7 kilos y ganó masa muscular.</p>
-        <p class="testimonial-time"><strong>3 meses</strong></p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-2">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/astrid.jpg" alt="Astrid - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Astrid</div>
-        <p class="testimonial-result">En solo 60 días bajó 7 kilos y se desinflamó totalmente.</p>
-        <p class="testimonial-time"><strong>60 días</strong></p>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/cari.png" alt="Cari - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-6</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Cari</div>
-        <p class="testimonial-result">En solo 90 días bajó 6 kilos y se desinflamó siendo paciente oncológica, tiene mucha más energía.</p>
-        <span class="testimonial-badge">Paciente oncológica</span>
-        <p class="testimonial-time"><strong>90 días</strong></p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
         <span class="quote-mark">&ldquo;</span>
         <div class="testimonial-img-wrap"><img src="img/patricia1.jpg" alt="Patricia - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
@@ -1111,11 +1194,10 @@ section { padding: var(--section-padding); position: relative; }
           <span class="testimonial-kg-label">kilos</span>
         </div>
         <div class="testimonial-name">Patricia</div>
-        <p class="testimonial-result">Bajó 10 kilos en 3 meses, se desinflamó, se le fueron los dolores de las articulaciones y no se le duermen más las manos.</p>
-        <p class="testimonial-time"><strong>3 meses</strong></p>
+        <p class="testimonial-result">Bajó 10 kilos, se desinflamó, se le fueron los dolores de las articulaciones y no se le duermen más las manos.</p>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-card reveal reveal-delay-1">
         <span class="quote-mark">&ldquo;</span>
         <div class="testimonial-img-wrap"><img src="img/graciela.png" alt="Graciela - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
@@ -1123,48 +1205,11 @@ section { padding: var(--section-padding); position: relative; }
           <span class="testimonial-kg-label">kilos</span>
         </div>
         <div class="testimonial-name">Graciela</div>
-        <p class="testimonial-result">En solo 90 días perdió 9 kilos, se desinflamó y ganó masa muscular teniendo endometriosis.</p>
+        <p class="testimonial-result">Perdió 9 kilos, se desinflamó y ganó masa muscular teniendo endometriosis.</p>
         <span class="testimonial-badge">Con endometriosis</span>
-        <p class="testimonial-time"><strong>90 días</strong></p>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/magui.png" alt="Magui - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-4</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Magui</div>
-        <p class="testimonial-result">Se desinflamó totalmente en su primer mes. En 90 días ganó masa muscular y perdió 4 kg teniendo SIBO.</p>
-        <span class="testimonial-badge">Con SIBO</span>
-        <p class="testimonial-time"><strong>90 días</strong></p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/ale1.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Ale</div>
-        <p class="testimonial-result">En solo 60 días se desinflamó totalmente. En 90 días bajó 7 kilos.</p>
-        <p class="testimonial-time"><strong>90 días</strong></p>
       </div>
 
       <div class="testimonial-card reveal reveal-delay-2">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/andrea.jpg" alt="Andrea - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-6</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Andrea</div>
-        <p class="testimonial-result">Bajó 6 kg, se desinflamó y ganó masa muscular.</p>
-      </div>
-
-      <div class="testimonial-card reveal">
         <span class="quote-mark">&ldquo;</span>
         <div class="testimonial-img-wrap"><img src="img/vanesa.jpg" alt="Vanesa - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
@@ -1175,7 +1220,97 @@ section { padding: var(--section-padding); position: relative; }
         <p class="testimonial-result">Bajó 9 kilos, se desinflamó, volvió su energía vital.</p>
       </div>
 
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/sil.png" alt="Sil - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-9</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Sil</div>
+        <p class="testimonial-result">Bajó 9 kilos, se desinflamó, recuperó energía vital.</p>
+      </div>
+
       <div class="testimonial-card reveal reveal-delay-1">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/cris.jpeg" alt="Cris - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-8</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Cris</div>
+        <p class="testimonial-result">Bajó 8 kilos, se desinflamó totalmente, mejoró su masa muscular aún teniendo hígado graso.</p>
+        <span class="testimonial-badge">Con hígado graso</span>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/sole.jpeg" alt="Sole - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Sole</div>
+        <p class="testimonial-result">Perdió 7 kilos, ganó energía vital y se desinflamó completamente.</p>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/elen.png" alt="Elen - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Elen</div>
+        <p class="testimonial-result">Se desinflamó, bajó 7 kilos y ganó masa muscular.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/ale1.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Ale</div>
+        <p class="testimonial-result">Se desinflamó totalmente y bajó 7 kilos.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/ale2.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Ale</div>
+        <p class="testimonial-result">Bajó 7 kilos, se desinflamó totalmente, recuperó energía vital.</p>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/cari.png" alt="Cari - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-6</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Cari</div>
+        <p class="testimonial-result">Bajó 6 kilos y se desinflamó siendo paciente oncológica, tiene mucha más energía.</p>
+        <span class="testimonial-badge">Paciente oncológica</span>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/andrea.jpg" alt="Andrea - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-6</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Andrea</div>
+        <p class="testimonial-result">Bajó 6 kg, se desinflamó y ganó masa muscular.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
         <span class="quote-mark">&ldquo;</span>
         <div class="testimonial-img-wrap"><img src="img/patricia2.jpeg" alt="Patricia - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
@@ -1187,32 +1322,132 @@ section { padding: var(--section-padding); position: relative; }
         <span class="testimonial-badge">Con diabetes</span>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-card reveal">
         <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/sil.png" alt="Sil - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-img-wrap"><img src="img/betiana.jpeg" alt="Betiana - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
-          <span class="testimonial-kg">-9</span>
+          <span class="testimonial-kg">-6</span>
           <span class="testimonial-kg-label">kilos</span>
         </div>
-        <div class="testimonial-name">Sil</div>
-        <p class="testimonial-result">Bajó 9 kilos, se desinflamó, recuperó energía vital.</p>
+        <div class="testimonial-name">Betiana</div>
+        <p class="testimonial-result">Bajó 6 kilos, se desinflamó totalmente, recuperó su energía aún tomando anticonceptivos.</p>
+        <span class="testimonial-badge">Con anticonceptivos</span>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/ana.jpeg" alt="Ana - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-6</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Ana</div>
+        <p class="testimonial-result">Bajó 6 kg de grasa acumulada, se desinflamó, se le fueron los dolores estomacales.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/euge.png" alt="Euge - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-5</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Euge</div>
+        <p class="testimonial-result">Bajó 5 kilos, mejoró su endometriosis, mejoró su sueño, se le fueron los dolores menstruales, ganó masa muscular.</p>
+        <span class="testimonial-badge">Con endometriosis</span>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/magui.png" alt="Magui - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-4</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Magui</div>
+        <p class="testimonial-result">Se desinflamó, ganó masa muscular y perdió 4 kg teniendo SIBO.</p>
+        <span class="testimonial-badge">Con SIBO</span>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/dani.jpeg" alt="Dani - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-4</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Dani</div>
+        <p class="testimonial-result">Bajó 4 kilos, se desinflamó totalmente, recuperó su energía.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/marce.png" alt="Marce - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-4</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Marce</div>
+        <p class="testimonial-result">Bajó 4 kilos, se desinflamó totalmente, recuperó su energía, ganó masa muscular.</p>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/gaby.png" alt="Gaby - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-3</span>
+          <span class="testimonial-kg-label">kg + 12 cm cintura</span>
+        </div>
+        <div class="testimonial-name">Gaby</div>
+        <p class="testimonial-result">Bajó 3 kg de grasa acumulada y 12 cm de cintura, ganó masa muscular.</p>
       </div>
 
     </div>
+
+    <!-- Fotos: 60 días -->
+    <h3 class="testimonials-subgroup-title reveal">Mis clientas en <em>60 días</em> tuvieron estos resultados</h3>
+    <div class="gold-divider reveal"></div>
+
+    <div class="testimonials-grid--centered">
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/astrid.jpg" alt="Astrid - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Astrid</div>
+        <p class="testimonial-result">Bajó 7 kilos y se desinflamó totalmente.</p>
+      </div>
+    </div>
+
+    <!-- Fotos: 30 días -->
+    <h3 class="testimonials-subgroup-title reveal">Mis clientas en <em>30 días</em> tuvieron estos resultados</h3>
+    <div class="gold-divider reveal"></div>
+
+    <div class="testimonials-grid--centered">
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/constanza.png" alt="Constanza - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-3</span>
+          <span class="testimonial-kg-label">kg + 5 cm cintura</span>
+        </div>
+        <div class="testimonial-name">Constanza</div>
+        <p class="testimonial-result">Bajó 3 kilos, bajó 5 cm de cintura, se desinflamó.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/flor.jpeg" alt="Flor - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-name">Flor</div>
+        <p class="testimonial-result">Se desinflamó totalmente.</p>
+      </div>
+    </div>
+
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 56px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
-
-<!-- ============ CTA STRIP ============ -->
-<div class="cta-strip">
-  <div class="container">
-    <h3 class="reveal">¿Estás lista para <em class="accent-text">transformarte</em>?</h3>
-    <a href="#agendar" class="btn-primary reveal reveal-delay-1">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Accedé ahora
-    </a>
-    <p class="scarcity reveal reveal-delay-2">Lugares reducidos para garantizar acompañamiento personalizado</p>
-  </div>
-</div>
 
 <!-- ============ PAIN POINTS ============ -->
 <section class="pain-section" id="dolor">
@@ -1278,7 +1513,7 @@ section { padding: var(--section-padding); position: relative; }
       <span class="pain-message" id="painMessage">El Método Paz fue creado exactamente para vos.</span>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 30px;">Accedé ahora →</a>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 30px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
 
@@ -1322,7 +1557,7 @@ section { padding: var(--section-padding); position: relative; }
       </div>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;">Accedé ahora →</a>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
 
@@ -1352,97 +1587,46 @@ section { padding: var(--section-padding); position: relative; }
       </div>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;">Accedé ahora →</a>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
 
-<!-- ============ TIMELINE ============ -->
-<section class="timeline-section">
-  <div class="container">
-    <div class="text-center">
-      <span class="section-label reveal">El proceso</span>
-      <h2 class="section-title reveal">Tu transformación en <span class="number-highlight">90</span> días</h2>
-      <div class="gold-divider reveal"></div>
-    </div>
-
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"><span>Mes 1</span></div>
-        <div class="timeline-content">
-          <h3>Desinflamación + nuevos hábitos</h3>
-          <p>Arrancás con el protocolo de ayuno e incorporás la alimentación antiinflamatoria. Tu abdomen empieza a desinflamarse y sentís los primeros cambios en tu energía.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal reveal-delay-1">
-        <div class="timeline-dot"><span>Mes 2</span></div>
-        <div class="timeline-content">
-          <h3>Pérdida de grasa + ganancia muscular</h3>
-          <p>Tu cuerpo ya está desinflamado y empieza a soltar la grasa acumulada. Ganás masa muscular, tu ropa te queda diferente y tu energía sigue subiendo.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal reveal-delay-2">
-        <div class="timeline-dot"><span>Mes 3</span></div>
-        <div class="timeline-content">
-          <h3>Consolidación + autonomía</h3>
-          <p>Los hábitos se consolidan. <strong>Perdés hasta 8 kilogramos con ganancia muscular</strong>, desinflamación total y energía vital. Sabés comer sin depender de nadie y los resultados se quedan con vos.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="text-center" style="margin-top: 40px;">
-      <a href="#agendar" class="btn-primary reveal">Accedé ahora →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ DELIVERABLES ============ -->
+<!-- ============ ¿CÓMO FUNCIONA? ============ -->
 <section class="deliverables-section" id="programa">
   <div class="container text-center">
-    <span class="section-label reveal">Todo lo que incluye</span>
-    <h2 class="section-title reveal">¿Qué vas a obtener al <em class="accent-text">acceder</em>?</h2>
+    <h2 class="section-title reveal">¿Cómo <em class="accent-text">funciona</em>?</h2>
     <div class="gold-divider reveal"></div>
 
-    <div class="deliverables-grid">
+    <div class="deliverables-grid" style="grid-template-columns: repeat(2, 1fr);">
       <div class="deliverable-card reveal">
-        <div class="deliverable-icon">&#128172;</div>
-        <h4>Acompañamiento 1 a 1 por WhatsApp privado</h4>
-        <p>Canal privado con Noe y su equipo de nutrición para resolver dudas y guiarte paso a paso en tu proceso.</p>
-      </div>
-      <div class="deliverable-card reveal reveal-delay-1">
         <div class="deliverable-icon">&#128101;</div>
         <h4>Comunidad privada</h4>
-        <p>Grupo exclusivo de alumnas que comparten avances, recetas y se apoyan mutuamente durante todo el proceso.</p>
-      </div>
-      <div class="deliverable-card reveal reveal-delay-2">
-        <div class="deliverable-icon">&#128187;</div>
-        <h4>Material exclusivo en plataforma online</h4>
-        <p>Acceso a todos los protocolos, clases y recursos del Método Paz en una plataforma privada disponible 24/7.</p>
-      </div>
-      <div class="deliverable-card reveal">
-        <div class="deliverable-icon">&#127947;&#65039;&#8205;&#9792;&#65039;</div>
-        <h4>Módulo Fit</h4>
-        <p>Rutinas de musculación guiadas para activar tu metabolismo, ganar masa muscular y potenciar los resultados.</p>
+        <p>Solo para el grupo privado del Método Paz, formarás parte de una comunidad super reducida de mujeres profesionales, donde compartimos avances, cómo venís con tu inflamación, pérdida de grasa, recetas, etc. Es un espacio de contención y motivación entre todas.</p>
       </div>
       <div class="deliverable-card reveal reveal-delay-1">
-        <div class="deliverable-icon">&#128204;</div>
-        <h4>Estrategia antiinflamatoria personalizada</h4>
-        <p>Diseñamos tu plan a medida según tu condición, objetivos y estilo de vida. No es un plan genérico.</p>
+        <div class="deliverable-icon">&#128187;</div>
+        <h4>Material exclusivo: plataforma online</h4>
+        <p>Durante el programa, tendrás acceso a todos mis conocimientos de más de 15 años de experiencia y al de mi equipo de nutrición, en una plataforma online, para que entiendas de alimentación consciente sobre nutrición y cocina.</p>
       </div>
-      <div class="deliverable-card reveal reveal-delay-2">
+      <div class="deliverable-card reveal">
+        <div class="deliverable-icon">&#128204;</div>
+        <h4>Tu estrategia personalizada antiinflamatoria</h4>
+        <p>Recibís una devolución mía y de mi equipo de nutrición, clara y accionable, con un paso a paso concreto super personalizado. Para que la metodología se adapte a tu vida y que así llegues a tus objetivos.</p>
+      </div>
+      <div class="deliverable-card reveal reveal-delay-1">
         <div class="deliverable-icon">&#128218;</div>
-        <h4>Guías esenciales + regla 80/20</h4>
-        <p>Guía de plato balanceado, guía de suplementación natural, regla 80/20 para sostener el método sin rigidez.</p>
+        <h4>Guías esenciales + reglas 80/20</h4>
+        <p>Todo lo que necesitas saber para cómo sostener el método sin rigidez y que sea accionable en tu vida real.</p>
       </div>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;">Accedé ahora →</a>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
 
 <!-- ============ IS IT FOR YOU ============ -->
 <section class="for-you-section">
   <div class="container text-center">
-    <span class="section-label reveal">Antes de aplicar</span>
     <h2 class="section-title reveal">¿Es <em class="accent-text">para vos</em>?</h2>
     <div class="gold-divider reveal"></div>
 
@@ -1466,135 +1650,10 @@ section { padding: var(--section-padding); position: relative; }
       </div>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;">Accedé ahora →</a>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
 
-<!-- ============ TESTIMONIALS BLOCK 2 ============ -->
-<section class="testimonials">
-  <div class="container text-center">
-    <span class="section-label reveal">Más resultados</span>
-    <h2 class="section-title reveal">Ellas también lo <em class="accent-text">lograron</em></h2>
-    <div class="gold-divider reveal"></div>
-
-    <div class="testimonials-grid">
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/ale2.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Ale</div>
-        <p class="testimonial-result">Bajó 7 kilos, se desinflamó totalmente, recuperó energía vital.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/dani.jpeg" alt="Dani - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-4</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Dani</div>
-        <p class="testimonial-result">Bajó 4 kilos, se desinflamó totalmente, recuperó su energía.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-2">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/marce.png" alt="Marce - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-4</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Marce</div>
-        <p class="testimonial-result">Bajó 4 kilos, se desinflamó totalmente, recuperó su energía, ganó masa muscular.</p>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/cris.jpeg" alt="Cris - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-8</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Cris</div>
-        <p class="testimonial-result">Bajó 8 kilos, se desinflamó totalmente, mejoró su masa muscular aún teniendo hígado graso.</p>
-        <span class="testimonial-badge">Con hígado graso</span>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/betiana.jpeg" alt="Betiana - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-6</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Betiana</div>
-        <p class="testimonial-result">Bajó 6 kilos, se desinflamó totalmente, recuperó su energía aún tomando anticonceptivos.</p>
-        <span class="testimonial-badge">Con anticonceptivos</span>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-2">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/ana.jpeg" alt="Ana - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-6</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Ana</div>
-        <p class="testimonial-result">Bajó 6 kg de grasa acumulada, se desinflamó, se le fueron los dolores estomacales.</p>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/euge.png" alt="Euge - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-5</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Euge</div>
-        <p class="testimonial-result">Bajó 5 kilos, mejoró su endometriosis, mejoró su sueño, se le fueron los dolores menstruales, ganó masa muscular.</p>
-        <span class="testimonial-badge">Con endometriosis</span>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/gaby.png" alt="Gaby - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-3</span>
-          <span class="testimonial-kg-label">kg + 12 cm cintura</span>
-        </div>
-        <div class="testimonial-name">Gaby</div>
-        <p class="testimonial-result">Bajó 3 kg de grasa acumulada y 12 cm de cintura, ganó masa muscular.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-2">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/constanza.png" alt="Constanza - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-3</span>
-          <span class="testimonial-kg-label">kg + 5 cm cintura</span>
-        </div>
-        <div class="testimonial-name">Constanza</div>
-        <p class="testimonial-result">En sólo 30 días bajó 3 kilos, bajó 5 cm de cintura, se desinflamó.</p>
-        <p class="testimonial-time"><strong>30 días</strong></p>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/flor.jpeg" alt="Flor - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-name">Flor</div>
-        <p class="testimonial-result">En sólo 30 días se desinflamó totalmente.</p>
-        <p class="testimonial-time"><strong>30 días</strong></p>
-      </div>
-
-    </div>
-
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;">Accedé ahora →</a>
-  </div>
-</section>
 
 <!-- ============ ABOUT THE EXPERT ============ -->
 <section class="about-section" id="sobre-noe">
@@ -1695,7 +1754,7 @@ section { padding: var(--section-padding); position: relative; }
     </div>
 
     <div class="text-center reveal" style="margin-top: 40px;">
-      <a href="#agendar" class="btn-primary">Accedé ahora →</a>
+      <a href="#agendar" class="btn-primary"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
     </div>
   </div>
 </section>
@@ -1709,8 +1768,8 @@ section { padding: var(--section-padding); position: relative; }
     <p class="section-subtitle reveal">El método que te enseña a mejorar tu salud y a alimentarte sano sin hacer dietas restrictivas</p>
 
     <!-- Principio del widget integrado de Calendly -->
-    <div id="calendly-container" class="reveal" style="margin:40px auto 0; max-width:700px; border:1px solid rgba(193,143,18,0.15); border-radius:16px;">
-      <div class="calendly-inline-widget" id="calendly-widget" data-url="https://calendly.com/d/cxsv-7kb-xbg?hide_gdpr_banner=1&background_color=121212&text_color=f5f5f0&primary_color=c18f12" style="min-width:320px;"></div>
+    <div id="calendly-container" class="reveal">
+      <div class="calendly-inline-widget" id="calendly-widget" data-url="https://calendly.com/d/cxsv-7kb-xbg?background_color=121212&text_color=f5f5f0&primary_color=c18f12" style="min-width:320px;"></div>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
       <script>
         // Pass UTM params to Calendly widget for tracking
@@ -1732,12 +1791,10 @@ section { padding: var(--section-padding); position: relative; }
         // Grow-only iframe height + auto-scroll on form step
         (function() {
           var maxHeight = 0;
-
           function isCalendlyEvent(e) {
             return e.data && e.origin && e.origin.indexOf('calendly.com') !== -1 &&
                    typeof e.data.event === 'string' && e.data.event.indexOf('calendly.') === 0;
           }
-
           function applyHeight(h) {
             if (!h || h <= maxHeight) return;
             maxHeight = h;
@@ -1748,26 +1805,21 @@ section { padding: var(--section-padding); position: relative; }
             widget.style.minHeight = finalH + 'px';
             var iframe = widget.querySelector('iframe');
             if (iframe) {
-              iframe.style.height = finalH + 'px';
               iframe.style.minHeight = finalH + 'px';
             }
           }
-
           window.addEventListener('message', function(e) {
             if (!isCalendlyEvent(e)) return;
-
             if (e.data.event === 'calendly.page_height' && e.data.payload && e.data.payload.height) {
               var h = parseInt(e.data.payload.height, 10);
               applyHeight(h);
             }
-
             if (e.data.event === 'calendly.date_and_time_selected') {
               var container = document.getElementById('calendly-container');
               if (!container) return;
               var top = container.getBoundingClientRect().top + window.pageYOffset - 12;
               window.scrollTo({ top: top, behavior: 'smooth' });
             }
-
             if (e.data.event === 'calendly.event_scheduled') {
               if (typeof gtag === 'function') {
                 gtag('event', 'generate_lead', { event_category: 'calendly', event_label: 'booking_confirmed' });
@@ -1784,11 +1836,6 @@ section { padding: var(--section-padding); position: relative; }
         <a href="https://calendly.com/d/cxsv-7kb-xbg" target="_blank" rel="noopener" class="btn-primary">Agendar llamada →</a>
       </div>
     </noscript>
-    <div id="calendly-fallback" style="display:none; text-align:center; margin:40px 0; padding:48px 32px; border:1px solid rgba(193,143,18,0.15); border-radius:16px; background:var(--bg-card);">
-      <p style="font-size:17px; color:var(--text-primary); margin-bottom:8px; font-family:var(--heading-font); font-weight:600;">Agendá tu llamada ahora</p>
-      <p style="font-size:14px; color:var(--text-muted); margin-bottom:24px;">Elegí el horario que mejor te quede</p>
-      <a href="https://calendly.com/d/cxsv-7kb-xbg" target="_blank" rel="noopener" class="btn-primary">Abrir calendario →</a>
-    </div>
   </div>
 </section>
 
@@ -1907,17 +1954,6 @@ section { padding: var(--section-padding); position: relative; }
 // ===== DYNAMIC COPYRIGHT YEAR =====
   var yearEl = document.getElementById('currentYear');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // ===== CALENDLY FALLBACK =====
-  var calFallback = document.getElementById('calendly-fallback');
-  if (calFallback) {
-    setTimeout(function() {
-      var iframe = document.querySelector('.calendly-inline-widget iframe');
-      if (!iframe) {
-        calFallback.style.display = 'block';
-      }
-    }, 4000);
-  }
 
 })();
 </script>
