@@ -257,20 +257,22 @@ section { padding: var(--section-padding); position: relative; }
 .hero h1 strong { color: var(--accent-light); font-weight: 700; }
 .hero-subtitle {
   font-size: clamp(1.05rem, 2.2vw, 1.4rem);
-  color: var(--accent-light);
-  max-width: 780px;
+  color: var(--text-primary);
+  max-width: 820px;
   margin: 0 auto 36px;
   font-weight: 600;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px 22px;
+  align-items: center;
+  gap: 4px 14px;
 }
 .hero-highlight {
   position: relative;
   display: inline-block;
   white-space: nowrap;
   padding-bottom: 4px;
+  color: var(--text-primary);
 }
 .hero-highlight::after {
   content: "";
@@ -284,9 +286,18 @@ section { padding: var(--section-padding); position: relative; }
   transform: skewX(-10deg);
   filter: blur(0.3px);
 }
+.hero-emoji {
+  display: inline-block;
+  font-size: 1.25em;
+  line-height: 1;
+  margin: 0 4px;
+  filter: drop-shadow(0 1px 4px rgba(193, 143, 18, 0.35));
+  transform: translateY(-1px);
+}
 @media (max-width: 600px) {
-  .hero-subtitle { gap: 4px 14px; font-size: 1rem; }
+  .hero-subtitle { gap: 3px 10px; font-size: 1rem; }
   .hero-highlight::after { height: 5px; }
+  .hero-emoji { font-size: 1.15em; margin: 0 2px; }
 }
 
 /* VSL Video — click-to-play facade */
@@ -1422,7 +1433,7 @@ section { padding: var(--section-padding); position: relative; }
     <h1 class="reveal reveal-delay-1">
       Descubrí el <strong>Método Paz</strong>, el sistema que te ayuda a <strong>bajar inflamación abdominal</strong>, perder hasta <strong><span class="number-highlight">8</span> kg con ganancia muscular</strong> a través de una alimentación antiinflamatoria a base de plantas, sin gluten y con nutrición en solo <strong><span class="number-highlight">90</span> días</strong>
     </h1>
-    <p class="hero-subtitle reveal reveal-delay-2"><span class="hero-highlight">Sin dietas estrictas</span><span class="hero-highlight">Sin contar calorías</span><span class="hero-highlight">Sin vivir en el gym</span></p>
+    <p class="hero-subtitle reveal reveal-delay-2"><span class="hero-highlight">Sin dietas estrictas</span><span class="hero-emoji" aria-hidden="true">🥗</span><span class="hero-highlight">Sin contar calorías</span><span class="hero-emoji" aria-hidden="true">🔥</span><span class="hero-highlight">Sin vivir en el gym</span><span class="hero-emoji" aria-hidden="true">🏋️‍♀️</span></p>
 
     <div id="vsl-player" class="reveal reveal-delay-2" role="button" tabindex="0" aria-label="Reproducir video Método Paz">
       <img src="vsl-thumbnail.png" alt="Método Paz — Video" class="vsl-thumb" loading="eager">
