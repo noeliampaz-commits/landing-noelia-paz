@@ -327,10 +327,14 @@ section { padding: var(--section-padding); position: relative; }
   transform: translateY(-4px);
 }
 @media (max-width: 600px) {
-  .hero-subtitle { gap: 4px 0; font-size: 1rem; flex-direction: column; }
-  .neg-sep { display: none; }
+  .hero-subtitle { gap: 6px 14px; font-size: 0.9rem; flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .neg-sep { display: inline-block; transform: translateY(-3px); }
   .neg-strike { height: 0.55em; }
   .neg-strike path { stroke-width: 2; }
+  .neg { gap: 6px; }
+}
+@media (max-width: 380px) {
+  .hero-subtitle { font-size: 0.82rem; gap: 5px 10px; }
 }
 
 /* VSL Video — autoplay muted + click-to-unmute */
@@ -618,7 +622,8 @@ section { padding: var(--section-padding); position: relative; }
 /* Image container for uniform height */
 .testimonial-img-wrap {
   width: 100%;
-  height: 240px;
+  aspect-ratio: 1 / 1;
+  background: #0a0a0a;
   border-radius: 8px;
   margin-bottom: 20px;
   overflow: hidden;
@@ -629,40 +634,20 @@ section { padding: var(--section-padding); position: relative; }
 .testimonial-card:hover .testimonial-img-wrap {
   border-color: var(--border-hover);
 }
-/* Dark gradient overlay to blend with card */
-.testimonial-img-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(18, 18, 18, 0) 50%,
-    rgba(18, 18, 18, 0.6) 100%
-  );
-  pointer-events: none;
-  z-index: 1;
-}
 .testimonial-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  filter: saturate(0.8) brightness(0.92);
-  transition: filter 0.5s ease, transform 0.5s ease;
-}
-.testimonial-img--contain {
   object-fit: contain;
   object-position: center;
-  background: #0a0a0a;
+  filter: saturate(0.85) brightness(0.95);
+  transition: filter 0.5s ease, transform 0.5s ease;
 }
+/* Legacy class — already default behavior */
+.testimonial-img--contain { object-fit: contain; }
 .testimonial-card:hover .testimonial-img {
   filter: saturate(1) brightness(1);
-  transform: scale(1.03);
-}
-.testimonial-card:hover .testimonial-img--contain {
   transform: scale(1.02);
 }
-
 /* ========== PAIN POINTS ========== */
 .pain-section { background: var(--bg-deep); }
 .pain-grid {
@@ -1304,7 +1289,7 @@ section { padding: var(--section-padding); position: relative; }
 
   .testimonials-grid { gap: 14px; }
   .testimonial-card { padding: 24px 20px; }
-  .testimonial-img-wrap { height: 220px; margin-bottom: 16px; }
+  .testimonial-img-wrap { margin-bottom: 16px; }
   .testimonial-kg { font-size: 1.75rem; }
   .testimonial-name { font-size: 1.2rem; }
   .testimonial-result { font-size: 0.9rem; }
@@ -1371,7 +1356,7 @@ section { padding: var(--section-padding); position: relative; }
   .proof-label { font-size: 0.62rem; letter-spacing: 0.4px; }
   h2 { font-size: 1.5rem; }
 
-  .testimonial-img-wrap { height: 200px; }
+  /* aspect-ratio 1/1 desde base style */
   .testimonial-card { padding: 20px 16px; }
   .testimonial-kg { font-size: 1.6rem; }
   .testimonial-name { font-size: 1.1rem; }
@@ -1412,7 +1397,7 @@ section { padding: var(--section-padding); position: relative; }
   .proof-number { font-size: 1.3rem; }
   .proof-label { font-size: 0.58rem; }
   h2 { font-size: 1.35rem; }
-  .testimonial-img-wrap { height: 180px; }
+  /* aspect-ratio 1/1 desde base style */
   .testimonials-subgroup-title { font-size: 1.05rem; }
   .btn-primary .btn-main { font-size: 0.82rem; }
   .btn-primary .btn-sub { font-size: 0.6rem; }
