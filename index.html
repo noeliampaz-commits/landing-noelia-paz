@@ -327,14 +327,27 @@ section { padding: var(--section-padding); position: relative; }
   transform: translateY(-4px);
 }
 @media (max-width: 600px) {
-  .hero-subtitle { gap: 6px 14px; font-size: 0.9rem; flex-direction: row; flex-wrap: wrap; justify-content: center; }
-  .neg-sep { display: inline-block; transform: translateY(-3px); }
+  /* Cada "Sin X" en su propia línea pero CENTRADA horizontalmente.
+     Sin + palabra tachada permanecen juntos como unidad inseparable. */
+  .hero-subtitle {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .neg {
+    white-space: nowrap;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .neg-sep { display: none; }
   .neg-strike { height: 0.55em; }
   .neg-strike path { stroke-width: 2; }
-  .neg { gap: 6px; }
 }
 @media (max-width: 380px) {
-  .hero-subtitle { font-size: 0.82rem; gap: 5px 10px; }
+  .hero-subtitle { font-size: 0.92rem; gap: 8px; }
 }
 
 /* VSL Video — autoplay muted + click-to-unmute */
