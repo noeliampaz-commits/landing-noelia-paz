@@ -115,8 +115,10 @@ h3 { font-size: clamp(1.4rem, 2.5vw, 1.8rem); }
 }
 .number-highlight {
   font-family: var(--body-font);
+  font-style: normal;
   font-weight: 700;
   color: var(--accent-light);
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
 
 /* ========== LAYOUT ========== */
@@ -854,29 +856,34 @@ section { padding: var(--section-padding); position: relative; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 78px;
+  height: 78px;
   border-radius: 50%;
   background: rgba(193, 143, 18, 0.1);
   border: 2px solid var(--accent);
   color: var(--accent-light);
   font-family: var(--body-font);
-  font-size: 1.1rem;
+  font-style: normal;
+  font-size: 1.7rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0;
+  font-feature-settings: "tnum" 1, "lnum" 1;
   margin: 0 auto 18px;
   position: relative;
   z-index: 1;
+  line-height: 1;
 }
+.pillar-mes span { display: inline-flex; flex-direction: column; align-items: center; }
 .pillar-mes small {
   display: block;
   font-size: 0.55rem;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--accent);
-  opacity: 0.8;
-  font-weight: 500;
-  margin-bottom: 2px;
+  opacity: 0.85;
+  font-weight: 600;
+  font-style: normal;
+  margin-bottom: 4px;
 }
 .pillar-divider {
   width: 40px;
@@ -1809,74 +1816,6 @@ section { padding: var(--section-padding); position: relative; }
     </div>
 
     <a href="#agendar" class="btn-primary reveal" style="margin-top: 48px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
-  </div>
-</section>
-
-<!-- ============ PAIN POINTS ============ -->
-<section class="pain-section" id="dolor">
-  <div class="container text-center">
-    <span class="section-label reveal">Identificate</span>
-    <h2 class="section-title reveal">¿Te sentís <em class="accent-text">identificada</em>?</h2>
-    <div class="gold-divider reveal"></div>
-    <p class="section-subtitle reveal">Seleccioná las situaciones que estés viviendo hoy</p>
-
-    <div class="pain-grid" id="painGrid">
-      <div class="pain-item reveal">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Te sentís inflamada después de cada comida</span>
-      </div>
-      <div class="pain-item reveal reveal-delay-1">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">No lográs bajar de peso sin importar lo que hagas</span>
-      </div>
-      <div class="pain-item reveal">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Sentís que te falta energía todo el día</span>
-      </div>
-      <div class="pain-item reveal reveal-delay-1">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Probaste dietas restrictivas y siempre volvés al mismo lugar</span>
-      </div>
-      <div class="pain-item reveal">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Te frustra no ver resultados reales</span>
-      </div>
-      <div class="pain-item reveal reveal-delay-1">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Tenés dolores articulares o musculares frecuentes</span>
-      </div>
-      <div class="pain-item reveal">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Dormís mal y te levantás cansada</span>
-      </div>
-      <div class="pain-item reveal reveal-delay-1">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Sentís culpa cada vez que "te salís" de la dieta</span>
-      </div>
-      <div class="pain-item reveal">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Tu digestión es un desastre</span>
-      </div>
-      <div class="pain-item reveal reveal-delay-1">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">No sabés qué comer para nutrir tu cuerpo de verdad</span>
-      </div>
-      <div class="pain-item reveal">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Estás cansada de que te digan "comé menos, movete más"</span>
-      </div>
-      <div class="pain-item reveal reveal-delay-1">
-        <div class="pain-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="pain-text">Sentís que perdiste el control de tu salud</span>
-      </div>
-    </div>
-
-    <div class="pain-counter" id="painCounter">
-      <span><span class="count" id="painCount">0</span> de 12 situaciones seleccionadas</span>
-      <span class="pain-message" id="painMessage">El Método Paz fue creado exactamente para vos.</span>
-    </div>
-
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 30px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
 
