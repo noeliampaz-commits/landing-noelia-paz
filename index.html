@@ -333,7 +333,7 @@ section { padding: var(--section-padding); position: relative; }
   .neg-strike path { stroke-width: 2; }
 }
 
-/* VSL Video — click-to-play facade */
+/* VSL Video — autoplay muted + click-to-unmute */
 #vsl-player {
   width: 100%;
   max-width: 780px;
@@ -345,62 +345,50 @@ section { padding: var(--section-padding); position: relative; }
   border: 1px solid rgba(193, 143, 18, 0.2);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(193, 143, 18, 0.06);
   background: #000;
-  cursor: pointer;
 }
-#vsl-player .vsl-thumb {
+#vsl-player iframe {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: 0;
   z-index: 1;
 }
-#vsl-player .vsl-overlay {
+#vsl-player .vsl-unmute {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.35) 100%);
-  z-index: 2;
-  pointer-events: none;
-  transition: background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.55) 100%);
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  font-family: var(--body-font);
+  z-index: 3;
+  transition: background 0.3s ease, opacity 0.4s ease;
 }
-#vsl-player:hover .vsl-overlay {
-  background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%);
-}
-#vsl-player .vsl-play-btn {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+#vsl-player .vsl-unmute:hover { background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 100%); }
+#vsl-player .vsl-unmute-icon {
   width: 96px;
   height: 96px;
   background: linear-gradient(135deg, var(--accent), var(--accent-light));
   border-radius: 50%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: #050505;
   box-shadow: 0 8px 40px rgba(193, 143, 18, 0.5), 0 0 0 10px rgba(193, 143, 18, 0.18);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  z-index: 3;
   animation: vslPulse 2s ease-in-out infinite;
 }
-#vsl-player:hover .vsl-play-btn {
-  transform: translate(-50%, -50%) scale(1.08);
-  box-shadow: 0 8px 48px rgba(193, 143, 18, 0.7), 0 0 0 14px rgba(193, 143, 18, 0.22);
-}
-#vsl-player .vsl-play-btn svg {
-  margin-left: 6px;
-}
-#vsl-player .vsl-label {
-  position: absolute;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  font-family: var(--body-font);
+#vsl-player .vsl-unmute-icon svg { width: 44px; height: 44px; }
+#vsl-player .vsl-unmute:hover .vsl-unmute-icon { transform: scale(1.06); transition: transform 0.3s ease; }
+#vsl-player .vsl-unmute-label {
   font-size: 0.85rem;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #fff;
-  font-weight: 600;
   padding: 8px 18px;
   background: rgba(0,0,0,0.55);
   border-radius: 30px;
@@ -410,22 +398,11 @@ section { padding: var(--section-padding); position: relative; }
   0%, 100% { box-shadow: 0 8px 40px rgba(193, 143, 18, 0.5), 0 0 0 0 rgba(193, 143, 18, 0.35); }
   50% { box-shadow: 0 8px 40px rgba(193, 143, 18, 0.5), 0 0 0 18px rgba(193, 143, 18, 0); }
 }
-#vsl-player.playing { cursor: default; }
-#vsl-player.playing .vsl-thumb,
-#vsl-player.playing .vsl-overlay,
-#vsl-player.playing .vsl-play-btn,
-#vsl-player.playing .vsl-label { display: none; }
-#vsl-player iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: 0;
-  z-index: 4;
-}
+#vsl-player.unmuted .vsl-unmute { opacity: 0; pointer-events: none; }
 @media (max-width: 600px) {
-  #vsl-player .vsl-play-btn { width: 76px; height: 76px; }
-  #vsl-player .vsl-play-btn svg { width: 28px; height: 28px; }
-  #vsl-player .vsl-label { font-size: 0.7rem; letter-spacing: 1.5px; padding: 6px 14px; bottom: 16px; }
+  #vsl-player .vsl-unmute-icon { width: 76px; height: 76px; }
+  #vsl-player .vsl-unmute-icon svg { width: 32px; height: 32px; }
+  #vsl-player .vsl-unmute-label { font-size: 0.7rem; letter-spacing: 1.5px; padding: 6px 14px; }
 }
 
 /* Proof Bar */
@@ -1473,13 +1450,19 @@ section { padding: var(--section-padding); position: relative; }
     </h1>
     <p class="hero-subtitle reveal reveal-delay-2"><span class="neg"><em class="neg-sin">Sin</em><span class="neg-struck">dietas estrictas<svg class="neg-strike" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 Q 40 4, 80 8 T 160 6 Q 180 7, 197 5"/></svg></span></span><span class="neg-sep" aria-hidden="true"></span><span class="neg"><em class="neg-sin">Sin</em><span class="neg-struck">contar calorías<svg class="neg-strike" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 7 Q 50 10, 100 5 T 197 8"/></svg></span></span><span class="neg-sep" aria-hidden="true"></span><span class="neg"><em class="neg-sin">Sin</em><span class="neg-struck">vivir en el gym<svg class="neg-strike" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 Q 60 5, 120 9 T 198 6"/></svg></span></span></p>
 
-    <div id="vsl-player" class="reveal reveal-delay-2" role="button" tabindex="0" aria-label="Reproducir video Método Paz">
-      <img src="vsl-thumbnail.png" alt="Método Paz — Video" class="vsl-thumb" loading="eager">
-      <div class="vsl-overlay"></div>
-      <div class="vsl-play-btn">
-        <svg width="38" height="38" viewBox="0 0 24 24" fill="#050505" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-      </div>
-      <div class="vsl-label">▶ Reproducir con sonido</div>
+    <div id="vsl-player" class="reveal reveal-delay-2">
+      <iframe id="vsl-iframe"
+              src="https://www.youtube.com/embed/tiscowFP_jk?autoplay=1&mute=1&loop=1&playlist=tiscowFP_jk&controls=1&playsinline=1&modestbranding=1&rel=0&enablejsapi=1"
+              title="Método Paz — Video"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <button type="button" class="vsl-unmute" id="vslUnmute" aria-label="Activar sonido del video">
+        <span class="vsl-unmute-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
+        </span>
+        <span class="vsl-unmute-label">Mirá este video con sonido</span>
+      </button>
     </div>
 
     <div class="proof-bar reveal reveal-delay-3">
@@ -1866,10 +1849,9 @@ section { padding: var(--section-padding); position: relative; }
 <!-- ============ ¿QUÉ VAS A OBTENER? ============ -->
 <section class="method-section" id="metodo">
   <div class="container text-center">
-    <span class="section-label reveal">Qué vas a obtener</span>
-    <h2 class="section-title reveal">Tu transformación en <span class="number-highlight">90</span> días</h2>
+    <h2 class="section-title reveal">¿Qué vas a <em class="accent-text">obtener</em>?</h2>
     <div class="gold-divider reveal"></div>
-    <p class="section-subtitle reveal">Mes a mes, resultados reales con protocolos que activamos en cada etapa</p>
+    <p class="section-subtitle reveal">Tu transformación en solo <span class="number-highlight">90</span> días, resultados reales con protocolos que activamos en cada etapa</p>
 
     <div class="pillars-grid">
       <div class="pillar-card reveal">
@@ -1886,7 +1868,7 @@ section { padding: var(--section-padding); position: relative; }
       </div>
       <div class="pillar-card reveal reveal-delay-1">
         <div class="pillar-mes"><span><small>Mes</small>02</span></div>
-        <h3>Bajás entre <em class="accent-text">4 y 5 kg</em> con ganancia muscular</h3>
+        <h3>Bajás entre <em class="accent-text">4/5 kg</em> con ganancia muscular</h3>
         <div class="pillar-divider"></div>
         <span class="pillar-action-label">Accionamos</span>
         <ul class="pillar-actions">
@@ -1993,13 +1975,12 @@ section { padding: var(--section-padding); position: relative; }
         <img src="noe-paz.webp" alt="Noe Paz — Chef especialista en alimentación antiinflamatoria" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div class="about-content">
-        <span class="section-label reveal">Sobre la experta</span>
         <h2 class="section-title reveal">¿Quién es <em class="accent-text">Noe Paz</em>?</h2>
         <div class="reveal">
           <p>Soy Noe Paz, chef especialista en alimentación basada en plantas y sin gluten, con más de <strong>15 años de experiencia</strong>.</p>
           <p>Fundadora de <strong>Casa II Restaurante</strong> en Buenos Aires, Argentina. Creadora de <strong>Cómo Vegano</strong> y de quesos a base de castañas de cajú.</p>
           <p>Empecé en este camino porque no me sentía bien con mi cuerpo. Estaba inflamada, no podía bajar de peso y mucho menos ganar masa muscular. Nunca me gustó la idea de hacer dietas restrictivas ya que me frustraban y agotaban, me generaban mucha culpa y siempre tenía efecto rebote.</p>
-          <p>Por eso creé el <strong>Método Paz</strong>: un sistema que combina todo lo que aprendí en 15 años para que vos puedas transformar tu salud sin sufrir.</p>
+          <p>Por eso creé el <strong>Método Paz junto a mi equipo de nutrición</strong>: un sistema que combina todo lo que aprendí en 15 años para que vos puedas transformar tu salud sin sufrir.</p>
         </div>
         <div class="about-milestones reveal">
           <div class="milestone">
@@ -2177,6 +2158,9 @@ section { padding: var(--section-padding); position: relative; }
       <a href="https://www.instagram.com/noepaz.vegan/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
       </a>
+      <a href="https://www.tiktok.com/@como.vegan" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.94a8.16 8.16 0 0 0 4.77 1.52V7.05a4.85 4.85 0 0 1-1.84-.36z"/></svg>
+      </a>
     </div>
     <p class="footer-copy">&copy; <span id="currentYear"></span> Método Paz. Todos los derechos reservados.</p>
   </div>
@@ -2239,23 +2223,17 @@ section { padding: var(--section-padding); position: relative; }
     counterObserver.observe(el);
   });
 
-  // ===== VSL CLICK-TO-PLAY (sound on) =====
+  // ===== VSL AUTOPLAY MUTED + CLICK TO UNMUTE =====
   var vslPlayer = document.getElementById('vsl-player');
-  if (vslPlayer) {
-    function playVSL() {
-      if (vslPlayer.classList.contains('playing')) return;
-      var iframe = document.createElement('iframe');
-      iframe.src = 'https://www.youtube.com/embed/tiscowFP_jk?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-      iframe.title = 'Método Paz — Video';
-      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-      iframe.setAttribute('allowfullscreen', '');
-      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-      vslPlayer.appendChild(iframe);
-      vslPlayer.classList.add('playing');
-    }
-    vslPlayer.addEventListener('click', playVSL);
-    vslPlayer.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playVSL(); }
+  var vslIframe = document.getElementById('vsl-iframe');
+  var vslUnmute = document.getElementById('vslUnmute');
+  if (vslPlayer && vslIframe && vslUnmute) {
+    vslUnmute.addEventListener('click', function() {
+      try {
+        vslIframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+        vslIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      } catch (e) {}
+      vslPlayer.classList.add('unmuted');
     });
   }
 
