@@ -1418,6 +1418,98 @@ section { padding: var(--section-padding); position: relative; }
   .btn-primary .btn-sub { font-size: 0.6rem; }
 }
 
+/* ========== MOBILE POLISH V2 (25-abr-2026) ========== */
+/* Prevenir cualquier overflow horizontal */
+html, body { overflow-x: hidden; max-width: 100%; }
+img, video, iframe { max-width: 100%; height: auto; }
+
+@media (max-width: 768px) {
+  /* Section padding más balanceado */
+  :root { --section-padding: 52px 0; }
+
+  /* Hero — mejor jerarquía visual */
+  .hero h1 { font-size: clamp(1.45rem, 5.5vw, 1.8rem); line-height: 1.3; }
+  .hero-subtitle { gap: 6px 0; }
+
+  /* VSL — overlay tap target completo */
+  #vsl-player .vsl-unmute { gap: 14px; }
+  #vsl-player .vsl-unmute-icon { width: 84px; height: 84px; }
+  #vsl-player .vsl-unmute-icon svg { width: 36px; height: 36px; }
+
+  /* Section titles — ¿Qué vas a obtener? y similares */
+  .section-title { font-size: clamp(1.55rem, 5.5vw, 2rem); line-height: 1.25; }
+  .section-subtitle { line-height: 1.55; }
+
+  /* Pillar cards — optimizar el círculo Mes 01 */
+  .pillar-mes { width: 72px; height: 72px; font-size: 1.5rem; margin: 0 auto 14px; }
+  .pillar-mes small { font-size: 0.5rem; letter-spacing: 2px; margin-bottom: 3px; }
+  .pillar-card { padding: 30px 20px; }
+  .pillar-card h3 { font-size: 1.15rem; line-height: 1.3; }
+  .pillar-card ul.pillar-actions li { font-size: 0.88rem; line-height: 1.5; }
+
+  /* CTA principal — mejor tap target */
+  .btn-primary { min-height: 56px; }
+
+  /* Footer social — tap targets más confortables */
+  .footer-social { gap: 14px; }
+  .footer-social a { width: 46px; height: 46px; }
+  .footer-social a svg { width: 22px; height: 22px; }
+
+  /* Proof bar — items mejor balanceados */
+  .proof-bar { padding: 0 6px; }
+
+  /* About section — espaciado vertical */
+  .about-content { padding: 0 4px; }
+
+  /* Calendly widget — evitar que rompa el viewport */
+  #calendly-container { overflow: hidden; }
+  #calendly-widget { width: 100% !important; }
+}
+
+@media (max-width: 480px) {
+  :root { --section-padding: 44px 0; }
+
+  /* Hero — más compacto sin perder impacto */
+  .hero { padding: 18px 0 36px; }
+  .hero h1 { font-size: 1.5rem; line-height: 1.3; }
+
+  /* VSL — label compacto */
+  #vsl-player .vsl-unmute-icon { width: 72px; height: 72px; }
+  #vsl-player .vsl-unmute-icon svg { width: 32px; height: 32px; }
+
+  /* Section titles — proportional */
+  .section-title { font-size: 1.55rem; }
+
+  /* Pillar cards — circle Mes ajustado */
+  .pillar-mes { width: 64px; height: 64px; font-size: 1.35rem; }
+  .pillar-mes small { font-size: 0.48rem; }
+
+  /* Proof items — mejor distribución */
+  .proof-bar { gap: 10px; }
+  .proof-item { padding: 0 4px; }
+
+  /* CTA full-width comfort */
+  .btn-primary { min-height: 54px; padding: 14px 20px; }
+}
+
+@media (max-width: 360px) {
+  /* Hero compacto extremo */
+  .hero h1 { font-size: 1.32rem; }
+  .hero { padding: 12px 0 30px; }
+
+  /* VSL label más corto */
+  #vsl-player .vsl-unmute-label { font-size: 0.62rem; padding: 5px 10px; letter-spacing: 1px; }
+  #vsl-player .vsl-unmute-icon { width: 64px; height: 64px; }
+  #vsl-player .vsl-unmute-icon svg { width: 28px; height: 28px; }
+
+  /* Pillar circle más chico */
+  .pillar-mes { width: 58px; height: 58px; font-size: 1.2rem; }
+
+  /* Footer */
+  .footer-social { gap: 12px; }
+  .footer-social a { width: 42px; height: 42px; }
+}
+
 /* ========== REDUCED MOTION ========== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
