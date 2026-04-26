@@ -1228,23 +1228,24 @@ section { padding: var(--section-padding); position: relative; }
   line-height: 1.5;
 }
 .form-steps-note {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto 36px;
   text-align: center;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  padding: 16px 22px;
-  background: rgba(193, 143, 18, 0.05);
-  border-left: 3px solid var(--accent);
-  border-radius: 6px;
-  line-height: 1.55;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  padding: 20px 28px;
+  background: rgba(193, 143, 18, 0.10);
+  border: 1px solid rgba(193, 143, 18, 0.35);
+  border-radius: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
-.form-steps-note strong { color: var(--accent-light); font-weight: 600; }
 @media (max-width: 768px) {
   .form-steps-list { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .form-steps-list li { padding: 18px 14px; }
   .form-step-text { font-size: 0.88rem; }
-  .form-steps-note { font-size: 0.9rem; padding: 14px 18px; }
+  .form-steps-note { font-size: 1.02rem; padding: 16px 20px; }
 }
 @media (max-width: 480px) {
   .form-steps-list { grid-template-columns: 1fr; }
@@ -1782,6 +1783,17 @@ img, video, iframe { max-width: 100%; height: auto; }
 
       <div class="testimonial-card reveal reveal-delay-1">
         <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/ale1.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Ale</div>
+        <p class="testimonial-result">Se desinflamó totalmente y bajó 7 kilos.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">&ldquo;</span>
         <div class="testimonial-img-wrap"><img src="img/cari.png" alt="Cari - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
           <span class="testimonial-kg">-6</span>
@@ -1849,29 +1861,6 @@ img, video, iframe { max-width: 100%; height: auto; }
     <div class="testimonials-grid--centered">
       <div class="testimonial-card reveal">
         <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/betiana.jpeg" alt="Betiana - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-6</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Betiana</div>
-        <p class="testimonial-result">Bajó 6 kilos, se desinflamó totalmente, recuperó su energía aún tomando anticonceptivos.</p>
-        <span class="testimonial-badge">Con anticonceptivos</span>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/dani.jpeg" alt="Dani - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-4</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Dani</div>
-        <p class="testimonial-result">Bajó 4 kilos, se desinflamó totalmente, recuperó su energía.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-2">
-        <span class="quote-mark">&ldquo;</span>
         <div class="testimonial-img-wrap"><img src="img/astrid.jpg" alt="Astrid - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
           <span class="testimonial-kg">-7</span>
@@ -1879,17 +1868,6 @@ img, video, iframe { max-width: 100%; height: auto; }
         </div>
         <div class="testimonial-name">Astrid</div>
         <p class="testimonial-result">Bajó 7 kilos y se desinflamó totalmente.</p>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/ale1.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Ale</div>
-        <p class="testimonial-result">Se desinflamó totalmente y bajó 7 kilos.</p>
       </div>
 
       <div class="testimonial-card reveal reveal-delay-1">
@@ -1902,6 +1880,29 @@ img, video, iframe { max-width: 100%; height: auto; }
         <div class="testimonial-name">Ale</div>
         <p class="testimonial-result">Bajó 7 kilos, se desinflamó totalmente, recuperó energía vital.</p>
       </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/betiana.jpeg" alt="Betiana - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-6</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Betiana</div>
+        <p class="testimonial-result">Bajó 6 kilos, se desinflamó totalmente, recuperó su energía aún tomando anticonceptivos.</p>
+        <span class="testimonial-badge">Con anticonceptivos</span>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/dani.jpeg" alt="Dani - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-4</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Dani</div>
+        <p class="testimonial-result">Bajó 4 kilos, se desinflamó totalmente, recuperó su energía.</p>
+      </div>
     </div>
 
     <a href="#agendar" class="btn-primary reveal" style="margin-top: 48px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
@@ -1913,13 +1914,14 @@ img, video, iframe { max-width: 100%; height: auto; }
     <div class="testimonials-grid--centered">
       <div class="testimonial-card reveal">
         <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/marce.png" alt="Marce - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-img-wrap"><img src="img/magui.png" alt="Magui - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
           <span class="testimonial-kg">-4</span>
           <span class="testimonial-kg-label">kilos</span>
         </div>
-        <div class="testimonial-name">Marce</div>
-        <p class="testimonial-result">Bajó 4 kilos, se desinflamó totalmente, recuperó su energía, ganó masa muscular.</p>
+        <div class="testimonial-name">Magui</div>
+        <p class="testimonial-result">Se desinflamó, ganó masa muscular y perdió 4 kg teniendo SIBO.</p>
+        <span class="testimonial-badge">Con SIBO</span>
       </div>
 
       <div class="testimonial-card reveal reveal-delay-1">
@@ -1953,18 +1955,6 @@ img, video, iframe { max-width: 100%; height: auto; }
         </div>
         <div class="testimonial-name">Flor</div>
         <p class="testimonial-result">Bajó 3 kg de grasa acumulada, bajó 7 cm de cintura, se desinflamó totalmente.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/magui.png" alt="Magui - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-4</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Magui</div>
-        <p class="testimonial-result">Se desinflamó, ganó masa muscular y perdió 4 kg teniendo SIBO.</p>
-        <span class="testimonial-badge">Con SIBO</span>
       </div>
     </div>
 
@@ -2200,9 +2190,9 @@ img, video, iframe { max-width: 100%; height: auto; }
 <section class="final-cta-section" id="agendar">
   <div class="glow glow-gold glow-3"></div>
   <div class="container" style="position: relative; z-index: 1;">
-    <span class="section-label reveal">Formulario Método Paz</span>
-    <h2 class="section-title reveal">¿Estás lista para <em class="accent-text">transformar</em> tu alimentación?</h2>
-    <p class="section-subtitle reveal">El método que te enseña a mejorar tu salud y a alimentarte sano sin hacer dietas restrictivas</p>
+    <span class="section-label reveal">Da el primer paso</span>
+    <h2 class="section-title reveal">¿Estás lista para <em class="accent-text">transformar</em> tu alimentación y salud?</h2>
+    <p class="section-subtitle reveal">Seguí los pasos a continuación para completar tu solicitud y que nuestro equipo pueda evaluar tu caso.</p>
 
     <!-- Pasos del proceso de admisión -->
     <div class="form-steps reveal">
@@ -2213,7 +2203,7 @@ img, video, iframe { max-width: 100%; height: auto; }
         </li>
         <li>
           <span class="form-step-num">2</span>
-          <div class="form-step-text">Agendá una llamada con mi equipo para ver tu caso en particular y si realmente te podemos ayudar</div>
+          <div class="form-step-text">Agendá una llamada con mi equipo para evaluar tu caso y ver si podemos ayudarte</div>
         </li>
         <li>
           <span class="form-step-num">3</span>
@@ -2221,12 +2211,12 @@ img, video, iframe { max-width: 100%; height: auto; }
         </li>
         <li>
           <span class="form-step-num">4</span>
-          <div class="form-step-text">Nos contactamos por WhatsApp lo antes posible para confirmar que puedas asistir en tiempo y forma</div>
+          <div class="form-step-text">Te contactamos por WhatsApp para confirmar tu asistencia</div>
         </li>
       </ol>
     </div>
 
-    <p class="form-steps-note reveal">Tenemos <strong>pocos lugares y alta demanda</strong>. Priorizamos a mujeres realmente comprometidas a mejorar su salud.</p>
+    <p class="form-steps-note reveal">Tenemos pocos lugares y alta demanda. Priorizamos a mujeres realmente comprometidas a mejorar su salud.</p>
 
     <!-- Principio del widget integrado de Calendly -->
     <div id="calendly-container" class="reveal">
@@ -2380,6 +2370,9 @@ img, video, iframe { max-width: 100%; height: auto; }
   if (vslPlayer && vslIframe && vslUnmute) {
     vslUnmute.addEventListener('click', function() {
       try {
+        // Restart desde el principio para que el lead vea el video completo,
+        // no desde el minuto donde estaba rolando muted.
+        vslIframe.contentWindow.postMessage('{"event":"command","func":"seekTo","args":[0,true]}', '*');
         vslIframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
         vslIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
       } catch (e) {}
