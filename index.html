@@ -844,38 +844,39 @@ section { padding: var(--section-padding); position: relative; }
   font-weight: 300;
   line-height: 1.6;
 }
+/* Editorial italic number (refactor design, in same top-of-card position) */
 .pillar-mes {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
-  background: rgba(193, 143, 18, 0.1);
-  border: 2px solid var(--accent);
-  color: var(--accent-light);
-  font-family: var(--body-font);
-  font-style: normal;
-  font-size: 1.7rem;
-  font-weight: 700;
+  width: auto;
+  height: auto;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  margin: 0 auto 14px;
+  font-family: var(--heading-font);
+  font-style: italic;
+  font-size: 3.6rem;
+  font-weight: 400;
+  color: var(--accent);
   letter-spacing: 0;
-  font-feature-settings: "tnum" 1, "lnum" 1;
-  margin: 0 auto 18px;
+  line-height: 1;
   position: relative;
   z-index: 1;
-  line-height: 1;
 }
 .pillar-mes span { display: inline-flex; flex-direction: column; align-items: center; }
 .pillar-mes small {
   display: block;
-  font-size: 0.55rem;
+  font-family: var(--body-font);
+  font-style: normal;
+  font-size: 0.62rem;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--accent);
-  opacity: 0.85;
+  opacity: 0.75;
   font-weight: 600;
-  font-style: normal;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .pillar-divider {
   width: 40px;
@@ -1191,54 +1192,53 @@ section { padding: var(--section-padding); position: relative; }
 .final-cta-section h2 { margin-bottom: 16px; }
 .final-cta-section .section-subtitle { margin-bottom: 36px; }
 
-/* Form steps roadmap (4 pasos del proceso de admisión) */
+/* Form steps — editorial row design (números italic Cormorant, líneas divisorias) */
 .form-steps {
-  max-width: 980px;
+  max-width: 720px;
   margin: 0 auto 28px;
 }
 .form-steps-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 .form-steps-list li {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  text-align: center;
-  padding: 22px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  flex-direction: row;
+  gap: 18px;
+  align-items: baseline;
+  text-align: left;
+  padding: 22px 8px;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  transition: none;
 }
-.form-steps-list li:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
+.form-steps-list li:last-child {
+  border-bottom: 1px solid var(--border);
 }
+.form-steps-list li:hover { transform: none; }
 .form-step-num {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
-  color: #050505;
-  font-family: var(--body-font);
-  font-weight: 700;
-  font-size: 1.05rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-feature-settings: "tnum" 1, "lnum" 1;
+  width: auto;
+  height: auto;
+  background: transparent;
+  font-family: var(--heading-font);
+  font-style: italic;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+  min-width: 38px;
 }
 .form-step-text {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: var(--text-light);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .form-steps-note {
   max-width: 760px;
@@ -1255,13 +1255,10 @@ section { padding: var(--section-padding); position: relative; }
   letter-spacing: 0.2px;
 }
 @media (max-width: 768px) {
-  .form-steps-list { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .form-steps-list li { padding: 18px 14px; }
-  .form-step-text { font-size: 0.88rem; }
+  .form-steps-list li { padding: 18px 6px; gap: 14px; }
+  .form-step-num { font-size: 1.7rem; min-width: 32px; }
+  .form-step-text { font-size: 0.92rem; }
   .form-steps-note { font-size: 1.02rem; padding: 16px 20px; }
-}
-@media (max-width: 480px) {
-  .form-steps-list { grid-template-columns: 1fr; }
 }
 
 /* Calendly embed — grow-only, no internal scroll */
@@ -1525,8 +1522,8 @@ img, video, iframe { max-width: 100%; height: auto; }
   .section-subtitle { line-height: 1.55; }
 
   /* Pillar cards — optimizar el círculo Mes 01 */
-  .pillar-mes { width: 72px; height: 72px; font-size: 1.5rem; margin: 0 auto 14px; }
-  .pillar-mes small { font-size: 0.5rem; letter-spacing: 2px; margin-bottom: 3px; }
+  .pillar-mes { width: auto; height: auto; font-size: 3rem; margin: 0 auto 12px; }
+  .pillar-mes small { font-size: 0.55rem; letter-spacing: 2px; margin-bottom: 4px; }
   .pillar-card { padding: 30px 20px; }
   .pillar-card h3 { font-size: 1.15rem; line-height: 1.3; }
   .pillar-card ul.pillar-actions li { font-size: 0.88rem; line-height: 1.5; }
@@ -1565,8 +1562,8 @@ img, video, iframe { max-width: 100%; height: auto; }
   .section-title { font-size: 1.55rem; }
 
   /* Pillar cards — circle Mes ajustado */
-  .pillar-mes { width: 64px; height: 64px; font-size: 1.35rem; }
-  .pillar-mes small { font-size: 0.48rem; }
+  .pillar-mes { width: auto; height: auto; font-size: 2.6rem; }
+  .pillar-mes small { font-size: 0.52rem; }
 
   /* Proof items — mejor distribución */
   .proof-bar { gap: 10px; }
@@ -1587,7 +1584,7 @@ img, video, iframe { max-width: 100%; height: auto; }
   #vsl-player .vsl-unmute-icon svg { width: 28px; height: 28px; }
 
   /* Pillar circle más chico */
-  .pillar-mes { width: 58px; height: 58px; font-size: 1.2rem; }
+  .pillar-mes { width: auto; height: auto; font-size: 2.3rem; }
 
   /* Footer */
   .footer-social { gap: 12px; }
