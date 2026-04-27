@@ -370,22 +370,6 @@ section { padding: var(--section-padding); position: relative; }
   border: 0;
   z-index: 1;
 }
-/* Poster: tapa el iframe HASTA que YouTube cargue. Cuando el iframe dispara
-   "load" (más pequeño buffer de seguridad), agregamos clase iframe-ready
-   y el poster hace fade-out. */
-#vsl-player .vsl-poster {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 2;
-  transition: opacity 0.5s ease;
-  opacity: 1;
-  pointer-events: none;
-}
-#vsl-player.iframe-ready .vsl-poster { opacity: 0; }
 #vsl-player .vsl-unmute {
   position: absolute;
   inset: 0;
@@ -1192,53 +1176,54 @@ section { padding: var(--section-padding); position: relative; }
 .final-cta-section h2 { margin-bottom: 16px; }
 .final-cta-section .section-subtitle { margin-bottom: 36px; }
 
-/* Form steps — editorial row design (números italic Cormorant, líneas divisorias) */
+/* Form steps roadmap (4 pasos del proceso de admisión) */
 .form-steps {
-  max-width: 720px;
+  max-width: 980px;
   margin: 0 auto 28px;
 }
 .form-steps-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
 .form-steps-list li {
   display: flex;
-  flex-direction: row;
-  gap: 18px;
-  align-items: baseline;
-  text-align: left;
-  padding: 22px 8px;
-  background: transparent;
-  border: 0;
-  border-top: 1px solid var(--border);
-  border-radius: 0;
-  transition: none;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  text-align: center;
+  padding: 22px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
-.form-steps-list li:last-child {
-  border-bottom: 1px solid var(--border);
+.form-steps-list li:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
 }
-.form-steps-list li:hover { transform: none; }
 .form-step-num {
   flex-shrink: 0;
-  width: auto;
-  height: auto;
-  background: transparent;
-  font-family: var(--heading-font);
-  font-style: italic;
-  font-size: 2rem;
-  font-weight: 400;
-  color: var(--accent);
-  line-height: 1;
-  min-width: 38px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: #050505;
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
 .form-step-text {
-  font-size: 1rem;
+  font-size: 0.92rem;
   color: var(--text-light);
-  line-height: 1.55;
+  line-height: 1.5;
 }
 .form-steps-note {
   max-width: 760px;
@@ -1255,10 +1240,13 @@ section { padding: var(--section-padding); position: relative; }
   letter-spacing: 0.2px;
 }
 @media (max-width: 768px) {
-  .form-steps-list li { padding: 18px 6px; gap: 14px; }
-  .form-step-num { font-size: 1.7rem; min-width: 32px; }
-  .form-step-text { font-size: 0.92rem; }
+  .form-steps-list { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .form-steps-list li { padding: 18px 14px; }
+  .form-step-text { font-size: 0.88rem; }
   .form-steps-note { font-size: 1.02rem; padding: 16px 20px; }
+}
+@media (max-width: 480px) {
+  .form-steps-list { grid-template-columns: 1fr; }
 }
 
 /* Calendly embed — grow-only, no internal scroll */
@@ -1634,7 +1622,6 @@ img, video, iframe { max-width: 100%; height: auto; }
               allow="autoplay; encrypted-media; picture-in-picture"
               allowfullscreen
               referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      <img id="vsl-poster" class="vsl-poster" src="vsl-thumbnail.png" alt="Método Paz — Vista previa del video" loading="eager">
       <button type="button" class="vsl-unmute" id="vslUnmute" aria-label="Activar sonido del video desde el inicio">
         <span class="vsl-unmute-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
@@ -1794,6 +1781,17 @@ img, video, iframe { max-width: 100%; height: auto; }
 
       <div class="testimonial-card reveal reveal-delay-1">
         <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/ale2.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Ale</div>
+        <p class="testimonial-result">Bajó 7 kilos, se desinflamó totalmente, recuperó energía vital.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">&ldquo;</span>
         <div class="testimonial-img-wrap"><img src="img/cari.png" alt="Cari - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
           <span class="testimonial-kg">-6</span>
@@ -1871,17 +1869,6 @@ img, video, iframe { max-width: 100%; height: auto; }
       </div>
 
       <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/ale2.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Ale</div>
-        <p class="testimonial-result">Bajó 7 kilos, se desinflamó totalmente, recuperó energía vital.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-2">
         <span class="quote-mark">&ldquo;</span>
         <div class="testimonial-img-wrap"><img src="img/ale1.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
         <div class="testimonial-highlight">
@@ -2374,27 +2361,11 @@ img, video, iframe { max-width: 100%; height: auto; }
     counterObserver.observe(el);
   });
 
-  // ===== VSL: AUTOPLAY MUTED + POSTER OVERLAY + CLICK TO UNMUTE DESDE 0 =====
+  // ===== VSL: AUTOPLAY MUTED + CLICK TO UNMUTE DESDE 0 =====
   var vslPlayer = document.getElementById('vsl-player');
   var vslIframe = document.getElementById('vsl-iframe');
   var vslUnmute = document.getElementById('vslUnmute');
   if (vslPlayer && vslIframe && vslUnmute) {
-    // Hacer fade-out del poster cuando el iframe termina de cargar (con un
-    // pequeño buffer para que YouTube ya esté reproduciendo muted al fondo).
-    var revealVideo = function() {
-      vslPlayer.classList.add('iframe-ready');
-    };
-    if (vslIframe.complete || vslIframe.readyState === 'complete') {
-      setTimeout(revealVideo, 600);
-    } else {
-      vslIframe.addEventListener('load', function() {
-        setTimeout(revealVideo, 600);
-      });
-    }
-    // Fallback de seguridad: si por alguna razón "load" no se dispara,
-    // forzar revelado a los 4 segundos para no dejar el poster pegado.
-    setTimeout(revealVideo, 4000);
-
     vslUnmute.addEventListener('click', function() {
       try {
         // Restart desde el principio + activar sonido + reproducir
