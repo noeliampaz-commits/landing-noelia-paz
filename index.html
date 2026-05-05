@@ -490,9 +490,12 @@ section { padding: var(--section-padding); position: relative; }
 /* Video testimonials (antes/después en video) */
 .video-testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 28px;
   margin-top: 50px;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .video-testimonial-card {
   background: var(--accent);
@@ -1727,6 +1730,17 @@ img, video, iframe { max-width: 100%; height: auto; }
         <div class="vt-footer">
           <div class="vt-time">En solo 90 días</div>
           <div class="vt-result">Se desinflamó, bajó 8 kilos, ganó masa muscular y tiene mucha más energía</div>
+        </div>
+      </div>
+
+      <div class="video-testimonial-card reveal reveal-delay-3">
+        <div class="vt-name">Andrea:</div>
+        <video controls preload="metadata" playsinline poster="testimonios/posters/Testimonio%20Andrea.jpg">
+          <source src="testimonios/Testimonio%20Andrea.mp4" type="video/mp4">
+        </video>
+        <div class="vt-footer">
+          <div class="vt-time">En solo 90 días</div>
+          <div class="vt-result">Perdió 10 kg, bajó 10 cm de cintura y recuperó energía</div>
         </div>
       </div>
     </div>
