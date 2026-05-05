@@ -416,6 +416,20 @@ section { padding: var(--section-padding); position: relative; }
   50% { box-shadow: 0 8px 40px rgba(193, 143, 18, 0.5), 0 0 0 18px rgba(193, 143, 18, 0); }
 }
 #vsl-player.unmuted .vsl-unmute { opacity: 0; pointer-events: none; }
+/* Mobile: tapar el thumbnail interno de YouTube con poster propio.
+   En mobile el iframe de YT muchas veces no autoplay incluso muteado,
+   y queda visible su thumbnail con el botón rojo de play. Acá ponemos
+   el poster de la landing sobre el iframe; el botón unmute al hacer
+   click hace fade-out de TODO este overlay (incl. el poster) y dispara
+   playVideo desde 0. En desktop el overlay es translúcido y deja ver
+   el video corriendo silenciado por debajo. */
+@media (max-width: 768px) {
+  #vsl-player .vsl-unmute {
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%),
+      url('vsl-thumbnail.png') center center / cover no-repeat #000;
+  }
+}
 @media (max-width: 600px) {
   #vsl-player .vsl-unmute-icon { width: 76px; height: 76px; }
   #vsl-player .vsl-unmute-icon svg { width: 32px; height: 32px; }
@@ -1745,59 +1759,6 @@ img, video, iframe { max-width: 100%; height: auto; }
       </div>
     </div>
 
-    <!-- Fotos: 90 días -->
-    <h3 class="testimonials-subgroup-title reveal">Mis clientas en <em>90 días</em> tuvieron estos resultados</h3>
-    <div class="gold-divider reveal"></div>
-
-    <div class="testimonials-grid">
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/sole.jpeg" alt="Sole - antes y después" class="testimonial-img testimonial-img--contain" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Sole</div>
-        <p class="testimonial-result">Perdió 7 kilos, ganó energía vital y se desinflamó completamente.</p>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/elen.png" alt="Elen - antes y después" class="testimonial-img testimonial-img--contain" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Elen</div>
-        <p class="testimonial-result">Se desinflamó, bajó 7 kilos y ganó masa muscular.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-1">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/ale2.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-7</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Ale</div>
-        <p class="testimonial-result">Bajó 7 kilos, se desinflamó totalmente, recuperó energía vital.</p>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-2">
-        <span class="quote-mark">&ldquo;</span>
-        <div class="testimonial-img-wrap"><img src="img/cari.png" alt="Cari - antes y después" class="testimonial-img" loading="lazy"></div>
-        <div class="testimonial-highlight">
-          <span class="testimonial-kg">-6</span>
-          <span class="testimonial-kg-label">kilos</span>
-        </div>
-        <div class="testimonial-name">Cari</div>
-        <p class="testimonial-result">Bajó 6 kilos y se desinflamó siendo paciente oncológica, tiene mucha más energía.</p>
-        <span class="testimonial-badge">Paciente oncológica</span>
-      </div>
-
-    </div>
-
     <a href="#agendar" class="btn-primary reveal" style="margin-top: 48px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
@@ -1889,6 +1850,65 @@ img, video, iframe { max-width: 100%; height: auto; }
     </div>
 
     <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
+  </div>
+</section>
+
+<!-- ============ MÁS RESULTADOS (FOTOS 90 DÍAS) ============ -->
+<section class="testimonials testimonials-secondary" id="mas-resultados">
+  <div class="container text-center">
+    <h2 class="section-title reveal">Más resultados de mis <em class="accent-text">clientas en 90 días</em></h2>
+    <div class="gold-divider reveal"></div>
+
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/sole.jpeg" alt="Sole - antes y después" class="testimonial-img testimonial-img--contain" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Sole</div>
+        <p class="testimonial-result">Perdió 7 kilos, ganó energía vital y se desinflamó completamente.</p>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/elen.png" alt="Elen - antes y después" class="testimonial-img testimonial-img--contain" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Elen</div>
+        <p class="testimonial-result">Se desinflamó, bajó 7 kilos y ganó masa muscular.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/ale2.png" alt="Ale - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-7</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Ale</div>
+        <p class="testimonial-result">Bajó 7 kilos, se desinflamó totalmente, recuperó energía vital.</p>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="testimonial-img-wrap"><img src="img/cari.png" alt="Cari - antes y después" class="testimonial-img" loading="lazy"></div>
+        <div class="testimonial-highlight">
+          <span class="testimonial-kg">-6</span>
+          <span class="testimonial-kg-label">kilos</span>
+        </div>
+        <div class="testimonial-name">Cari</div>
+        <p class="testimonial-result">Bajó 6 kilos y se desinflamó siendo paciente oncológica, tiene mucha más energía.</p>
+        <span class="testimonial-badge">Paciente oncológica</span>
+      </div>
+
+    </div>
+
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 48px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
   </div>
 </section>
 
@@ -2285,7 +2305,7 @@ img, video, iframe { max-width: 100%; height: auto; }
 </script>
 
 <!-- ============ FLOATING WHATSAPP BUTTON ============ -->
-<a href="https://wa.me/5491176443550" target="_blank" rel="noopener" class="wa-float" aria-label="Escribir por WhatsApp" id="waFloat">
+<a href="https://wa.me/5491176443550?text=Quisiera%20saber%20m%C3%A1s%20sobre%20el%20M%C3%A9todo%20PAZ" target="_blank" rel="noopener" class="wa-float" aria-label="Escribir por WhatsApp" id="waFloat">
   <span class="wa-float-pulse" aria-hidden="true"></span>
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
 </a>
