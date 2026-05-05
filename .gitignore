@@ -1,5 +1,6 @@
 *.mp4
 !testimonios/*.mp4
+!vsl/*.mp4
 .DS_Store
 node_modules/
 .env
