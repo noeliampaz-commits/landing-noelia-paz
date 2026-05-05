@@ -2366,6 +2366,22 @@ img, video, iframe { max-width: 100%; height: auto; }
   var vslIframe = document.getElementById('vsl-iframe');
   var vslUnmute = document.getElementById('vslUnmute');
   if (vslPlayer && vslIframe && vslUnmute) {
+    // Mobile fix: algunos browsers móviles ignoran ?autoplay=1 del iframe
+    // y muestran el thumbnail. Forzamos playVideo vía postMessage en
+    // múltiples intentos porque el listener interno de YT IFrame API tarda
+    // en registrarse y el timing varía en iOS/Android.
+    vslIframe.addEventListener('load', function() {
+      [200, 600, 1500, 3000].forEach(function(delay) {
+        setTimeout(function() {
+          try {
+            vslIframe.contentWindow.postMessage('{"event":"listening"}', '*');
+            vslIframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+            vslIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+          } catch (e) {}
+        }, delay);
+      });
+    });
+
     vslUnmute.addEventListener('click', function() {
       try {
         // Restart desde el principio + activar sonido + reproducir
