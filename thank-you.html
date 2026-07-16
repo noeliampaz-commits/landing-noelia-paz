@@ -270,6 +270,92 @@
     font-style: italic;
   }
 
+  /* ── VSL PLAYER (video vertical, autoplay muted + click-to-unmute) ── */
+  #vsl-player {
+    width: 100%;
+    max-width: 380px;
+    margin: 40px auto 0;
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(193,143,18,0.25);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(193,143,18,0.08);
+    background-color: #000;
+  }
+  #vsl-player::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    background: radial-gradient(ellipse at 50% 50%, rgba(193,143,18,0.4) 0%, transparent 70%);
+    filter: blur(30px);
+    z-index: -1;
+    opacity: 0.6;
+  }
+  #vsl-player video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border: 0;
+    z-index: 1;
+    background: #000;
+  }
+  #vsl-player .vsl-unmute {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.55) 100%);
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+    font-family: var(--body-font);
+    z-index: 3;
+    transition: background 0.3s ease, opacity 0.4s ease;
+  }
+  #vsl-player .vsl-unmute:hover { background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 100%); }
+  #vsl-player .vsl-unmute-icon {
+    width: 88px;
+    height: 88px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #050505;
+    box-shadow: 0 8px 40px rgba(193,143,18,0.5), 0 0 0 10px rgba(193,143,18,0.18);
+    animation: vslPulse 2s ease-in-out infinite;
+  }
+  #vsl-player .vsl-unmute-icon svg { width: 40px; height: 40px; }
+  #vsl-player .vsl-unmute:hover .vsl-unmute-icon { transform: scale(1.06); transition: transform 0.3s ease; }
+  #vsl-player .vsl-unmute-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    background: rgba(0,0,0,0.55);
+    border-radius: 30px;
+    backdrop-filter: blur(4px);
+    text-align: center;
+  }
+  @keyframes vslPulse {
+    0%, 100% { box-shadow: 0 8px 40px rgba(193,143,18,0.5), 0 0 0 0 rgba(193,143,18,0.35); }
+    50% { box-shadow: 0 8px 40px rgba(193,143,18,0.5), 0 0 0 18px rgba(193,143,18,0); }
+  }
+  #vsl-player.unmuted .vsl-unmute { opacity: 0; pointer-events: none; }
+  @media (max-width: 600px) {
+    #vsl-player { max-width: 320px; }
+    #vsl-player .vsl-unmute-icon { width: 76px; height: 76px; }
+    #vsl-player .vsl-unmute-icon svg { width: 32px; height: 32px; }
+    #vsl-player .vsl-unmute-label { font-size: 0.7rem; letter-spacing: 1.5px; padding: 6px 14px; }
+  }
+
   /* ── STEPS ── */
   .steps {
     display: grid;
@@ -510,17 +596,34 @@
     <div class="hero-label">Paso 1 de 1 — Preparate para tu llamada</div>
     <h1 class="hero-title">¡Gracias por agendar tu llamada<br>con <em>Noelia Paz</em>!</h1>
     <p class="hero-sub">
-      Valoramos mucho tu tiempo (y el nuestro), así que en los próximos <strong>80 segundos</strong> te voy a explicar cómo prepararte para sacarle el máximo provecho a esta llamada y cómo <strong>confirmar tu asistencia</strong>.
+      Valoramos mucho tu tiempo (y el nuestro), así que en el <strong>video de abajo</strong> te explico cómo prepararte para sacarle el máximo provecho a esta llamada y cómo <strong>confirmar tu asistencia</strong>.
     </p>
   </section>
 
-  <!-- ============================================================
-       SECCIÓN VIDEO PREPARACIÓN — pendiente de grabar.
-       Cuando Noe tenga el archivo, restaurar este bloque (commit
-       anterior 3bf347d tiene la versión completa del placeholder).
-       Ubicar el video en /landing/vsl/preparacion-llamada.mp4 +
-       poster. .gitignore ya whitelista vsl/*.mp4.
-       ============================================================ -->
+  <!-- VIDEO DE PREPARACIÓN — mensaje de Noelia (autoplay muted + click-to-unmute) -->
+  <section>
+    <div class="section-label">Un mensaje para vos</div>
+    <h2 class="section-title">Mirá esto <em>antes</em> de la llamada</h2>
+    <p class="section-body">
+      Tocá el video para escucharlo con sonido. En 2 minutos Noelia te cuenta cómo va a ser la llamada y cómo prepararte.
+    </p>
+
+    <div id="vsl-player">
+      <video id="vsl-video"
+             autoplay muted loop playsinline preload="metadata"
+             poster="vsl/llamada-admision-poster.jpg"
+             aria-label="Noelia Paz — Preparate para tu llamada">
+        <source src="vsl/llamada-admision.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+      </video>
+      <button type="button" class="vsl-unmute" id="vslUnmute" aria-label="Activar sonido del video desde el inicio">
+        <span class="vsl-unmute-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
+        </span>
+        <span class="vsl-unmute-label">Mirá este video con sonido</span>
+      </button>
+    </div>
+  </section>
 
   <!-- EXPECTATIVA: Qué va a pasar -->
   <section>
@@ -708,6 +811,34 @@
         title.innerHTML = '¡Gracias, <em>' + name.split(' ')[0] + '</em>,<br>tu llamada está confirmada!';
       }
     }
+  })();
+
+  // VSL: autoplay muted + loop + playsinline; el botón reinicia desde 0 con sonido.
+  (function() {
+    var vslPlayer = document.getElementById('vsl-player');
+    var vslVideo = document.getElementById('vsl-video');
+    var vslUnmute = document.getElementById('vslUnmute');
+    if (!vslPlayer || !vslVideo || !vslUnmute) return;
+    var attemptPlay = function() {
+      try {
+        var p = vslVideo.play();
+        if (p && typeof p.catch === 'function') p.catch(function(){});
+      } catch (e) {}
+    };
+    vslVideo.addEventListener('loadedmetadata', attemptPlay);
+    vslVideo.addEventListener('canplay', attemptPlay);
+    attemptPlay();
+
+    vslUnmute.addEventListener('click', function() {
+      try {
+        vslVideo.currentTime = 0;
+        vslVideo.muted = false;
+        vslVideo.loop = false;
+        vslVideo.controls = true;
+        attemptPlay();
+      } catch (e) {}
+      vslPlayer.classList.add('unmuted');
+    });
   })();
 </script>
 
