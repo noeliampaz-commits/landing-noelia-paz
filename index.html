@@ -1172,7 +1172,7 @@ section { padding: var(--section-padding); position: relative; }
 
 /* ========== FINAL CTA + CALENDLY ========== */
 .final-cta-section {
-  padding: 100px 0 80px;
+  padding: 80px 0 80px;
   text-align: center;
   background: var(--bg-deep);
   position: relative;
@@ -1255,21 +1255,22 @@ section { padding: var(--section-padding); position: relative; }
 }
 
 /* Calendly embed — grow-only, no internal scroll */
-#calendly-container {
+.calendly-container {
   overflow: hidden;
   background: #121212;
   border: 1px solid rgba(193, 143, 18, 0.2);
   border-radius: 16px;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(193, 143, 18, 0.06);
   max-width: 700px;
-  margin: 48px auto 0;
+  margin: 0 auto;
 }
-#calendly-widget {
+.hero-calendly { margin-top: 40px; }
+.calendly-inline-widget {
   height: 1300px;
   min-height: 1300px;
   transition: height 0.3s ease;
 }
-#calendly-widget iframe {
+.calendly-inline-widget iframe {
   width: 100% !important;
   height: 100% !important;
   min-height: 100% !important;
@@ -1325,7 +1326,7 @@ section { padding: var(--section-padding); position: relative; }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 900px) {
-  #calendly-widget { height: 1500px; min-height: 1500px; }
+  .calendly-inline-widget { height: 1500px; min-height: 1500px; }
 }
 @media (max-width: 768px) {
   :root { --section-padding: 70px 0; }
@@ -1352,8 +1353,9 @@ section { padding: var(--section-padding); position: relative; }
   .btn-primary { padding: 16px 28px; font-size: 0.9rem; }
 }
 @media (max-width: 640px) {
-  #calendly-widget { height: 1700px; min-height: 1700px; }
-  #calendly-container { border-radius: 12px; margin-top: 32px; }
+  .calendly-inline-widget { height: 1700px; min-height: 1700px; }
+  .calendly-container { border-radius: 12px; }
+  .hero-calendly { margin-top: 32px; }
 }
 
 @media (max-width: 480px) {
@@ -1425,8 +1427,9 @@ section { padding: var(--section-padding); position: relative; }
   .faq-answer-inner { padding: 0 20px 20px; font-size: 0.9rem; }
 
   .final-cta-section { padding: 60px 0 50px; }
-  #calendly-container { margin-top: 28px; border-radius: 12px; }
-  #calendly-widget { min-width: 0 !important; }
+  .calendly-container { border-radius: 12px; }
+  .hero-calendly { margin-top: 28px; }
+  .calendly-inline-widget { min-width: 0 !important; }
 
   .site-footer { padding: 32px 0; }
   .footer-social { margin-bottom: 16px; }
@@ -1536,8 +1539,8 @@ img, video, iframe { max-width: 100%; height: auto; }
   .about-content { padding: 0 4px; }
 
   /* Calendly widget — evitar que rompa el viewport */
-  #calendly-container { overflow: hidden; }
-  #calendly-widget { width: 100% !important; }
+  .calendly-container { overflow: hidden; }
+  .calendly-inline-widget { width: 100% !important; }
 }
 
 @media (max-width: 480px) {
@@ -1694,10 +1697,35 @@ img, video, iframe { max-width: 100%; height: auto; }
       </div>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal reveal-delay-4">
-      <span class="btn-main">Transforma tu alimentación y salud</span>
-      <span class="btn-sub">Accede ahora</span>
+    <a href="#agendar-hero" class="btn-primary reveal reveal-delay-4">
+      <span class="btn-main">Agenda tu llamada de diagnóstico</span>
+      <span class="btn-sub">Elegí día y horario</span>
     </a>
+
+    <!-- Calendario debajo del CTA del VSL (mismo Calendly que el del final) -->
+    <div id="agendar-hero" class="calendly-container hero-calendly reveal">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/d/cxsv-7kb-xbg?hide_gdpr_banner=1&background_color=121212&text_color=f5f5f0&primary_color=c18f12" style="min-width:320px;height:700px;"></div>
+    </div>
+    <script>
+      // Pasa los UTM al data-url de cada calendario antes de que Calendly lo inicialice
+      window.__calendlyUtms = function() {
+        var params = new URLSearchParams(window.location.search);
+        var extra = [];
+        ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k) {
+          var v = params.get(k);
+          if (v) extra.push(k + '=' + encodeURIComponent(v));
+        });
+        if (extra.length === 0) return;
+        document.querySelectorAll('.calendly-inline-widget').forEach(function(widget) {
+          if (widget.getAttribute('data-utm-applied')) return;
+          var base = widget.getAttribute('data-url');
+          var sep = base.indexOf('?') === -1 ? '?' : '&';
+          widget.setAttribute('data-url', base + sep + extra.join('&'));
+          widget.setAttribute('data-utm-applied', '1');
+        });
+      };
+      window.__calendlyUtms();
+    </script>
   </div>
 </section>
 
@@ -1754,7 +1782,7 @@ img, video, iframe { max-width: 100%; height: auto; }
       </div>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 48px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 48px;"><span class="btn-main">Agenda tu llamada de diagnóstico</span><span class="btn-sub">Elegí día y horario</span></a>
   </div>
 </section>
 
@@ -1801,7 +1829,7 @@ img, video, iframe { max-width: 100%; height: auto; }
       </div>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Agenda tu llamada de diagnóstico</span><span class="btn-sub">Elegí día y horario</span></a>
   </div>
 </section>
 
@@ -1844,7 +1872,7 @@ img, video, iframe { max-width: 100%; height: auto; }
       </div>
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Agenda tu llamada de diagnóstico</span><span class="btn-sub">Elegí día y horario</span></a>
   </div>
 </section>
 
@@ -1891,76 +1919,7 @@ img, video, iframe { max-width: 100%; height: auto; }
 
     </div>
 
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 48px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
-  </div>
-</section>
-
-<!-- ============ IS IT FOR YOU ============ -->
-<section class="for-you-section">
-  <div class="container text-center">
-    <h2 class="section-title reveal">¿Es <em class="accent-text">para vos</em>?</h2>
-    <div class="gold-divider reveal"></div>
-
-    <div class="for-you-grid">
-      <div class="for-you-col yes reveal">
-        <h3>Sí, es para vos si...</h3>
-        <div class="for-you-item"><span class="for-you-icon">&#10003;</span><span>Querés desinflamarte de verdad y dejar de sufrir con la alimentación</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10003;</span><span>Querés perder hasta 8 kilogramos con ganancia muscular en 90 días</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10003;</span><span>Estás dispuesta a cambiar hábitos con acompañamiento profesional</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10003;</span><span>Querés aprender a comer bien, no hacer otra dieta más</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10003;</span><span>Buscás un método personalizado, no un plan genérico</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10003;</span><span>Tenés condiciones como diabetes, SIBO, endometriosis u otras y querés mejorar</span></div>
-      </div>
-      <div class="for-you-col no reveal reveal-delay-1">
-        <h3>No es para vos si...</h3>
-        <div class="for-you-item"><span class="for-you-icon">&#10007;</span><span>Buscás una pastilla mágica o resultado sin esfuerzo</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10007;</span><span>No estás dispuesta a cambiar nada de lo que hacés hoy</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10007;</span><span>Querés resultados sin ningún tipo de compromiso</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10007;</span><span>Preferís seguir probando dietas restrictivas de moda</span></div>
-        <div class="for-you-item"><span class="for-you-icon">&#10007;</span><span>No te interesa aprender sobre nutrición real</span></div>
-      </div>
-    </div>
-
-    <a href="#agendar" class="btn-primary reveal" style="margin-top: 40px;"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
-  </div>
-</section>
-
-
-<!-- ============ ABOUT THE EXPERT ============ -->
-<section class="about-section" id="sobre-noe">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-image reveal">
-        <img src="noe-paz.webp" alt="Noe Paz — Chef especialista en alimentación antiinflamatoria" style="width:100%;height:100%;object-fit:cover;">
-      </div>
-      <div class="about-content">
-        <h2 class="section-title reveal">¿Quién es <em class="accent-text">Noe Paz</em>?</h2>
-        <div class="reveal">
-          <p>Soy Noe Paz, chef especialista en alimentación basada en plantas y sin gluten, con más de <strong>15 años de experiencia</strong>.</p>
-          <p>Fundadora de <strong>Casa II Restaurante</strong> en Buenos Aires, Argentina. Creadora de <strong>Cómo Vegano</strong> y de quesos a base de castañas de cajú.</p>
-          <p>Empecé en este camino porque no me sentía bien con mi cuerpo. Estaba inflamada, no podía bajar de peso y mucho menos ganar masa muscular. Nunca me gustó la idea de hacer dietas restrictivas ya que me frustraban y agotaban, me generaban mucha culpa y siempre tenía efecto rebote.</p>
-          <p>Por eso creé el <strong>Método Paz junto a mi equipo de nutrición</strong>: un sistema que combina todo lo que aprendí en 15 años para que vos puedas transformar tu salud sin sufrir.</p>
-        </div>
-        <div class="about-milestones reveal">
-          <div class="milestone">
-            <span class="milestone-icon">&#127859;</span>
-            <span class="milestone-text">Fundadora de Casa II Restaurante, Buenos Aires</span>
-          </div>
-          <div class="milestone">
-            <span class="milestone-icon">&#127793;</span>
-            <span class="milestone-text">Creadora de Cómo Vegano y quesos plant-based</span>
-          </div>
-          <div class="milestone">
-            <span class="milestone-icon">&#128218;</span>
-            <span class="milestone-text">+15 años de experiencia en alimentación saludable</span>
-          </div>
-          <div class="milestone">
-            <span class="milestone-icon">&#10024;</span>
-            <span class="milestone-text">Especialista en cocina antiinflamatoria sin gluten</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <a href="#agendar" class="btn-primary reveal" style="margin-top: 48px;"><span class="btn-main">Agenda tu llamada de diagnóstico</span><span class="btn-sub">Elegí día y horario</span></a>
   </div>
 </section>
 
@@ -2024,7 +1983,7 @@ img, video, iframe { max-width: 100%; height: auto; }
     </div>
 
     <div class="text-center reveal" style="margin-top: 40px;">
-      <a href="#agendar" class="btn-primary"><span class="btn-main">Transforma tu alimentación y salud</span><span class="btn-sub">Accede ahora</span></a>
+      <a href="#agendar" class="btn-primary"><span class="btn-main">Agenda tu llamada de diagnóstico</span><span class="btn-sub">Elegí día y horario</span></a>
     </div>
   </div>
 </section>
@@ -2033,101 +1992,63 @@ img, video, iframe { max-width: 100%; height: auto; }
 <section class="final-cta-section" id="agendar">
   <div class="glow glow-gold glow-3"></div>
   <div class="container" style="position: relative; z-index: 1;">
-    <span class="section-label reveal">Da el primer paso</span>
-    <h2 class="section-title reveal">¿Estás lista para <em class="accent-text">transformar</em> tu alimentación y salud?</h2>
-    <p class="section-subtitle reveal">Seguí los pasos a continuación para completar tu solicitud y que nuestro equipo pueda evaluar tu caso.</p>
-
-    <!-- Pasos del proceso de admisión -->
-    <div class="form-steps reveal">
-      <ol class="form-steps-list">
-        <li>
-          <span class="form-step-num">1</span>
-          <div class="form-step-text">Llená el formulario de admisión</div>
-        </li>
-        <li>
-          <span class="form-step-num">2</span>
-          <div class="form-step-text">Agendá una llamada con mi equipo para evaluar tu caso y ver si podemos ayudarte</div>
-        </li>
-        <li>
-          <span class="form-step-num">3</span>
-          <div class="form-step-text">Te llega la confirmación vía mail</div>
-        </li>
-        <li>
-          <span class="form-step-num">4</span>
-          <div class="form-step-text">Te contactamos por WhatsApp para confirmar tu asistencia</div>
-        </li>
-      </ol>
-    </div>
-
-    <p class="form-steps-note reveal">Tenemos pocos lugares y alta demanda. Priorizamos a mujeres realmente comprometidas a mejorar su salud.</p>
-
     <!-- Principio del widget integrado de Calendly -->
-    <div id="calendly-container" class="reveal">
+    <div id="calendly-container" class="calendly-container reveal">
       <div class="calendly-inline-widget" id="calendly-widget" data-url="https://calendly.com/d/cxsv-7kb-xbg?hide_gdpr_banner=1&background_color=121212&text_color=f5f5f0&primary_color=c18f12" style="min-width:320px;height:700px;"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      <script>
-        // Pass UTM params to Calendly widget for tracking
-        (function() {
-          var params = new URLSearchParams(window.location.search);
-          var extra = [];
-          var utms = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-          utms.forEach(function(k) {
-            var v = params.get(k);
-            if (v) extra.push(k + '=' + encodeURIComponent(v));
-          });
-          if (extra.length === 0) return;
-          var widget = document.getElementById('calendly-widget');
-          var base = widget.getAttribute('data-url');
-          var sep = base.indexOf('?') === -1 ? '?' : '&';
-          widget.setAttribute('data-url', base + sep + extra.join('&'));
-        })();
-
-        // Grow-only iframe height + auto-scroll on form step
-        (function() {
-          var maxHeight = 0;
-          function isCalendlyEvent(e) {
-            return e.data && e.origin && e.origin.indexOf('calendly.com') !== -1 &&
-                   typeof e.data.event === 'string' && e.data.event.indexOf('calendly.') === 0;
-          }
-          function applyHeight(h) {
-            if (!h || h <= maxHeight) return;
-            maxHeight = h;
-            var widget = document.getElementById('calendly-widget');
-            if (!widget) return;
-            var finalH = h + 40;
-            widget.style.height = finalH + 'px';
-            widget.style.minHeight = finalH + 'px';
-            var iframe = widget.querySelector('iframe');
-            if (iframe) {
-              iframe.style.minHeight = finalH + 'px';
-            }
-          }
-          window.addEventListener('message', function(e) {
-            if (!isCalendlyEvent(e)) return;
-            if (e.data.event === 'calendly.page_height' && e.data.payload && e.data.payload.height) {
-              var h = parseInt(e.data.payload.height, 10);
-              applyHeight(h);
-            }
-            if (e.data.event === 'calendly.date_and_time_selected') {
-              var container = document.getElementById('calendly-container');
-              if (!container) return;
-              var top = container.getBoundingClientRect().top + window.pageYOffset - 12;
-              window.scrollTo({ top: top, behavior: 'smooth' });
-            }
-            if (e.data.event === 'calendly.event_scheduled') {
-              if (typeof gtag === 'function') {
-                gtag('event', 'generate_lead', { event_category: 'calendly', event_label: 'booking_confirmed' });
-              }
-            }
-          });
-        })();
-      </script>
     </div>
+    <script>window.__calendlyUtms && window.__calendlyUtms();</script>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script>
+      // Grow-only iframe height + auto-scroll on form step (aplica a todos los calendarios de la página)
+      (function() {
+        function isCalendlyEvent(e) {
+          return e.data && e.origin && e.origin.indexOf('calendly.com') !== -1 &&
+                 typeof e.data.event === 'string' && e.data.event.indexOf('calendly.') === 0;
+        }
+        function widgetFor(e) {
+          var widgets = document.querySelectorAll('.calendly-inline-widget');
+          for (var i = 0; i < widgets.length; i++) {
+            var f = widgets[i].querySelector('iframe');
+            if (f && f.contentWindow === e.source) return widgets[i];
+          }
+          return widgets[0] || null;
+        }
+        function applyHeight(widget, h) {
+          if (!widget || !h) return;
+          var maxHeight = parseInt(widget.getAttribute('data-max-h') || '0', 10);
+          if (h <= maxHeight) return;
+          widget.setAttribute('data-max-h', String(h));
+          var finalH = h + 40;
+          widget.style.height = finalH + 'px';
+          widget.style.minHeight = finalH + 'px';
+          var iframe = widget.querySelector('iframe');
+          if (iframe) iframe.style.minHeight = finalH + 'px';
+        }
+        window.addEventListener('message', function(e) {
+          if (!isCalendlyEvent(e)) return;
+          var widget = widgetFor(e);
+          if (e.data.event === 'calendly.page_height' && e.data.payload && e.data.payload.height) {
+            applyHeight(widget, parseInt(e.data.payload.height, 10));
+          }
+          if (e.data.event === 'calendly.date_and_time_selected') {
+            var container = widget ? widget.closest('.calendly-container') : null;
+            if (!container) return;
+            var top = container.getBoundingClientRect().top + window.pageYOffset - 12;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
+          if (e.data.event === 'calendly.event_scheduled') {
+            if (typeof gtag === 'function') {
+              gtag('event', 'generate_lead', { event_category: 'calendly', event_label: 'booking_confirmed' });
+            }
+          }
+        });
+      })();
+    </script>
     <!-- Final del widget integrado de Calendly -->
 
     <noscript>
       <div style="text-align:center; margin:40px 0;">
-        <a href="https://calendly.com/d/cxsv-7kb-xbg" target="_blank" rel="noopener" class="btn-primary">Agendar llamada →</a>
+        <a href="https://calendly.com/d/cxsv-7kb-xbg" target="_blank" rel="noopener" class="btn-primary"><span class="btn-main">Agenda tu llamada de diagnóstico</span><span class="btn-sub">Elegí día y horario</span></a>
       </div>
     </noscript>
   </div>
